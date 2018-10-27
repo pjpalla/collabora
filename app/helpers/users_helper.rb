@@ -6,7 +6,7 @@ module UsersHelper
         users = users.delete_if{|k,v| k.nil?}
         logger.debug "Users: #{users}"
       
-        pie_chart users, library: {title: "By sex", pieHole: 0.4}
+        pie_chart users, library: {title: "Ripartizione per sesso", pieHole: 0.4}
         # pie_chart users, height: '400px', library: {
         #   title: {text: 'Users by sex', x: -20},
         #   yAxis: {
@@ -40,7 +40,7 @@ module UsersHelper
         users = users.sort.to_h
         
         
-        bar_chart users, library: {title: "By age", colors: ["green"]}   
+        bar_chart users, library: {title: "Ripartizione per fasce d'età", colors: ["green"]}   
         
         # bar_chart users, height: '500px', library: {
         #   title: {text: 'Users by age', x: -20},
@@ -83,11 +83,11 @@ module UsersHelper
                     counters[0] += v                    
                 end    
             end
-        user_locations = {"Ambulatori Medici, Farmacie, Centri di Aggregazione" => counters[0], "Presidi Sanitari San Gavino" => counters[1], "Presidi Sanitari Sanluri" => counters[2],
+        user_locations = {"Ambulatori Medici, Farmacie" => counters[0], "Presidi Sanitari S.Gavino" => counters[1], "Presidi Sanitari Sanluri" => counters[2],
                             "Presidi Sanitari Villacidro" => counters[3], "Presidi Sanitari Guspini" => counters[4]}
                             
         user_locations = user_locations.sort_by{|name, value| -value}.to_h                    
-        line_chart user_locations                    
+        line_chart user_locations, xtitle: "Centri di Raccolta", height: "450px", width: "1400"                    
         
     end
     
