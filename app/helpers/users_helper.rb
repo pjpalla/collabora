@@ -28,18 +28,25 @@ module UsersHelper
     
     
     def users_by_age
-        #binding.pry
+        
         users = User.all
-        users = users.group(:age).count
+        u = users
+        users = users.each{|u| u.age.strip! unless u.age.nil?}
+        ages = users.map{|u| u.age}.compact
+        ### here we count the users for each age
+        h = Hash.new(0)
+        ages.each{|a| h[a] += 1}
+        users = h
+        #binding.pry
+        #users = users.group(:age).count
+        #binding.pry
         
         #Here we remove spaces from the beginning and the end of each key
         #and we build a new hash
-        users = Hash[users.map{|k,v| [k.strip, v] unless k.nil?}]
+        #users = Hash[users.map{|k,v| [k.strip, v] unless k.nil?}]
         
         #Then we sort the keys of the users hash
         users = users.sort.to_h
-        
-        
         bar_chart users, library: {title: "Ripartizione per fasce d'età", colors: ["green"]}   
         
         # bar_chart users, height: '500px', library: {
