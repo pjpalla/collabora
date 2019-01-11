@@ -105,6 +105,18 @@
    text-align: center;
 }
 
+#selected_drugs{
+   width: 150px;
+    
+}
+  label.stat.white{
+      color: white;
+  } 
+
+  li.stat.white{
+      color: white;
+  } 
+  
   h3.stat.black{
     background-color: #222;
     color: white;
@@ -120,6 +132,12 @@
  h3.stat.brown{
      background-color: #64360D;
      color: white;
+     padding: 5px;
+ }
+ 
+ h3.stat.blue{
+     background-color: #337ab7;
+     color: black;
      padding: 5px;
  }
  

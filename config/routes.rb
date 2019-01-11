@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'statistics/adverse_reactions'
   get 'statistics/side_effects'
   get 'statistics/drugs'
+  get 'statistics/aggregated_drugs'
+  post 'statistics/aggregated_drugs'
   
   resources :users
   resources :questions
