@@ -77,6 +77,17 @@ class StatisticsController < ApplicationController
     def drugs
         @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").paginate(:page => params[:page]).order('drug_name ASC')
         
+    end
+    
+    def aggregated_drugs
+        @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").order('drug_name ASC')
+        if params["selected"].nil?
+            @drug_selected = @drug_names.first.drug_name
+        else
+            puts params.inspect
+            @drug_selected = params["selected"]
+        end    
+
     end    
         
     
