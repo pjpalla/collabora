@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-#ruby '2.5.0'
-gem 'rails', '4.2.5'
+ruby '2.4.0'
+gem 'rails', '4.2.8'
 #update json gem
 gem 'json', '>= 1.8.3'
 # Use docx to parse doc files
@@ -21,7 +21,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use ChartKik for diagrams
-gem 'chartkick'
+gem 'chartkick', '2.0.0'
 # Use will_paginate for pagination of output elements
 gem 'will_paginate', '~> 3.1.0'
 
