@@ -18,5 +18,5 @@
 /tmp
 /file*
 sum_keys
-*lock
+#*lock
 *.log
