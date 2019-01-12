@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 #Ruby version used
 gem 'rails', '4.2.5'
 #update json gem
-gem 'json', '2.1.0'
+gem 'json', '>= 1.8.3'
 # Use docx to parse doc files
 gem 'docx', '0.2.07'
 # Use SCSS for stylesheets
