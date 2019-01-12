@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #Ruby version used
 gem 'rails', '4.2.5'
+#update json gem
+gem 'json', '2.1.0'
 # Use docx to parse doc files
 gem 'docx', '0.2.07'
 # Use SCSS for stylesheets
