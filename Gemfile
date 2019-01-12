@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 #Ruby version used
-ruby '2.3.0'
-
 gem 'rails', '4.2.5'
 # Use docx to parse doc files
 gem 'docx', '0.2.07'
