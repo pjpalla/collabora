@@ -71,3 +71,10 @@ group :development do
   gem 'log4r'
 end
 
+group :production do
+  # Use postgresql as the database for Active Record
+  gem 'pg', ' 0.15'
+  gem 'rails_12factor'
+  gem 'log4r'
+  
+end
