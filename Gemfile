@@ -2,9 +2,15 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+# Ruby version used
+ruby '2.4.0'
+
+# Use rails 4.2.8
+gem 'rails', '4.2.8'
 # Use postgresql as the database for Active Record
 gem 'pg', ' 0.15'
+# Use json 1.8.6
+gem 'json', '1.8.6'
 # Use docx to parse doc files
 gem 'docx', '0.2.07'
 # Use SCSS for stylesheets
@@ -20,7 +26,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use ChartKik for diagrams
-gem 'chartkick'
+gem 'chartkick', '2.0.0'
 # Use will_paginate for pagination of output elements
 gem 'will_paginate', '~> 3.1.0'
 
