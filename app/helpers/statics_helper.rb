@@ -66,8 +66,9 @@ def get_i(n)
 #       i[0] = i[0] + bb_count - i5_positive
 #       i[1] = i[1] + i5_positive
 #   end       
-
-   if (n == 10 || n == 11)
+   if (n == 8)
+       remap = {0 => "", 1 => "suggerimento"}
+   elsif (n == 10 || n == 11)
        remap = {0 => "no", 1 => "sì"}
    end       
    new_i = i.map{|k,v| [remap[k], v]}.to_h
