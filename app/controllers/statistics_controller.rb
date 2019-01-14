@@ -37,7 +37,8 @@ class StatisticsController < ApplicationController
         1.upto(@num_of_indicators){|n| @counts_by_genre[n - 1] = get_i_by_genre(n)}
         #binding.pry
         ### Descrizione indicatori
-        @descriptions = IndicatorDescription.all.pluck(:description)
+        @descriptions = IndicatorDescription.order('id asc').pluck(:description)
+        @descriptions = @descriptions.map{|d| d.capitalize}
 
         
     end
