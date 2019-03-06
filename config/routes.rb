@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :surveys
   resources :patients do 
     resource :profile
   end  

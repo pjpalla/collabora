@@ -16,7 +16,7 @@
             <div class="row">
                <div class="col-md-6">
                     <%= label_tag "select_drug", "Seleziona i farmaci", class: "stat white" %><br/>
-                    <%= select_tag "selected", options_from_collection_for_select(@drug_names, "drug_name", "drug_name"), multiple: true, class: "custom-select" %>
+                    <%= select_tag "selected", options_from_collection_for_select(@drug_names, "drug_name", "drug_name"), multiple: true, class: "selectpicker" %>
                 </div>                
                 <div class="col-md-6">
                  <%= label_tag "selected_drugs", "Farmaci Selezionati:", class: "stat white" %><br/>

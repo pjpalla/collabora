@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311102639) do
+ActiveRecord::Schema.define(version: 20190219163630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,13 @@ ActiveRecord::Schema.define(version: 20170311102639) do
     t.text    "qtext"
     t.integer "quid",  null: false
     t.integer "subid", null: false
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.integer  "uid"
+    t.string   "card"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", primary_key: "uid", force: :cascade do |t|
