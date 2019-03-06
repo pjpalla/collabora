@@ -66,8 +66,9 @@ def get_i(n)
 #       i[0] = i[0] + bb_count - i5_positive
 #       i[1] = i[1] + i5_positive
 #   end       
-
-   if (n == 10 || n == 11)
+   if (n == 8)
+       remap = {0 => "", 1 => "suggerimento"}
+   elsif (n == 10 || n == 11)
        remap = {0 => "no", 1 => "sì"}
    end       
    new_i = i.map{|k,v| [remap[k], v]}.to_h
@@ -214,8 +215,21 @@ end
        elapsed_counts = Hash[elapsed_time.group_by{|e| e}.map{|k, v| [k, v.count]}]
        elapsed_counts.delete_if{|k, v| k.nil?}
        
+     
+     
        return effect_counts, stacked_data, elapsed_counts
-      
-       
    end
+   
+   def count_aggregate_drug_effects(drug_names)
+       hash_array = []
+       res = Hash.new(0)
+       drug_names.each do |drug_name|
+           h = count_drug_effects(drug_name)[0]
+           hash_array.append(h)
+       end
+       #### Here we merge the hashing summing the values corresponding to the same key
+       hash_array.each { |subhash| subhash.each { |prod, value| res[prod] += value } }
+       res    
+    end   
+   
 end

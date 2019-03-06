@@ -36,7 +36,11 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.4)
+<<<<<<< HEAD
     autoprefixer-rails (9.4.5)
+=======
+    autoprefixer-rails (9.4.4)
+>>>>>>> dev
       execjs
     bcrypt (3.1.12)
     binding_of_caller (0.8.0)
@@ -95,7 +99,11 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+<<<<<<< HEAD
     nokogiri (1.10.1)
+=======
+    nokogiri (1.10.0)
+>>>>>>> dev
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (0.15.0)
@@ -205,7 +213,11 @@ DEPENDENCIES
   font-awesome-sass (= 4.2.0)
   jbuilder (~> 2.0)
   jquery-rails
+<<<<<<< HEAD
   json (= 1.8.6)
+=======
+  json (>= 1.8.3)
+>>>>>>> dev
   log4r
   pg (= 0.15)
   pry

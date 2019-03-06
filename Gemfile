@@ -2,15 +2,10 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-# Ruby version used
 ruby '2.4.0'
-
-# Use rails 4.2.8
 gem 'rails', '4.2.8'
-# Use postgresql as the database for Active Record
-gem 'pg', ' 0.15'
-# Use json 1.8.6
-gem 'json', '1.8.6'
+#update json gem
+gem 'json', '>= 1.8.3'
 # Use docx to parse doc files
 gem 'docx', '0.2.07'
 # Use SCSS for stylesheets
@@ -57,6 +52,8 @@ group :development, :test do
   gem 'pry'
   #gem 'pry-debugger'
   gem 'pry-doc'
+  # Use postgresql as the database for Active Record
+  gem 'pg', ' 0.15'
   #gem 'pry-rails'
 end
 
@@ -78,3 +75,4 @@ group :production do
   gem 'log4r'
   
 end
+
