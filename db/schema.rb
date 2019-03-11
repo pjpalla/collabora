@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190219163630) do
+ActiveRecord::Schema.define(version: 20190311121007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20190219163630) do
     t.string "sex",              limit: 1
     t.text   "card"
     t.text   "stratum"
+    t.string "place"
   end
 
   add_foreign_key "answers", "questions", column: "qid", primary_key: "qid", name: "answers_quest_fk"
