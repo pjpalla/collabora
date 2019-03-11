@@ -1,4 +1,7 @@
   
+<% options = @locations.map{|l| l.upcase} %>
+<%= select_tag "locations", options_for_select(options, options[0]), multiple: false, class: "selectpicker" %><br/><br/>
+
 
 <div class="jumbotron">
     <h2>Persone Intervistate</h2>
