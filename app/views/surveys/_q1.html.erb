@@ -6,7 +6,7 @@
    <p><%= @questions[0].qtext %></p>
  </div>
  <div class="radio">
-  <label><input type="radio" name="answer01_0" value="Sì" <%= 'checked' if session[:answer01_0] == "Sì" or session[:answer01_0].nil? %> >Sì</label>
+  <label><input type="radio" name="answer01_0" value="Sì" <%= 'checked' if session[:answer01_0] == "Sì" %> >Sì</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="answer01_0" value= "No" <%= 'checked' if session[:answer01_0] == "No" %> >No</label>
@@ -18,7 +18,7 @@
  
 
     <div class="radio">
-      <label><input type="radio" name="answer01_1" value="reazioni indesiderate" <%= 'checked' if session[:answer01_1] == "reazioni indesiderate" or session[:answer01_1].nil? %>>reazioni indesiderate</label>
+      <label><input type="radio" name="answer01_1" value="reazioni indesiderate" <%= 'checked' if session[:answer01_1] == "reazioni indesiderate" %>>reazioni indesiderate</label>
     </div>
       <div class="radio">
       <label><input type="radio" name="answer01_1" value="inefficacia" <%= 'checked' if session[:answer01_1] == "inefficacia" %>>inefficacia</label>

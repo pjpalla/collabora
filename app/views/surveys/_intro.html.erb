@@ -18,7 +18,7 @@
 
  
 <div class="radio">
-  <label><input type="radio" name="sex" value="M" <%= 'checked' unless session[:sex] == "F"%> >M</label>
+  <label><input type="radio" name="sex" value="M" <%= 'checked' if session[:sex] == "M"%> >M</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="sex" value= "F" <%= 'checked' if session[:sex] == "F" %> >F</label>
@@ -29,7 +29,7 @@
 <div class="input-group">
 <span class="label label-primary">Fascia di Età:</span>
     <div class="radio">
-      <label><input type="radio" name="eta" value="18-30" <%= 'checked' if session[:eta] == "18-30" or session[:eta].nil? %>>18-30</label>
+      <label><input type="radio" name="eta" value="18-30" <%= 'checked' if session[:eta] == "18-30" %>>18-30</label>
     </div>
     <div class="radio">
       <label><input type="radio" name="eta" value="30-40" <%= 'checked' if session[:eta] == "30-40" %>>30-40</label>

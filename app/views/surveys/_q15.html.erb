@@ -5,7 +5,7 @@
    <p><%= @questions[22].qtext %></p>
  </div>
  <div class="radio">
-  <label><input type="radio" name="answer15_0" value="Sì" <%= 'checked' if session[:answer15_0] == "Sì" or session[:answer15_0].nil? %> >Sì</label>
+  <label><input type="radio" name="answer15_0" value="Sì" <%= 'checked' if session[:answer15_0] == "Sì" %> >Sì</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="answer15_0" value= "No" <%= 'checked' if session[:answer15_0] == "No" %> >No</label>

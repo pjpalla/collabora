@@ -5,7 +5,7 @@
    <p><%= @questions[17].qtext %></p>
  </div>
  <div class="radio">
-  <label><input type="radio" name="answer11_0" value="Sì" <%= 'checked' if session[:answer11_0] == "Sì" or session[:answer11_0].nil? %> >Sì</label>
+  <label><input type="radio" name="answer11_0" value="Sì" <%= 'checked' if session[:answer11_0] == "Sì" %> >Sì</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="answer11_0" value= "No" <%= 'checked' if session[:answer11_0] == "No" %> >No</label>
@@ -38,7 +38,7 @@
  </div>
  
  <div class="radio">
-     <label><input type="radio" name="answer11_2" value="una o più volte alla settimana" <%= 'checked' if session[:answer11_2] == "una o più volte alla settimana" or session[:answer11_2].nil? %>>una o più volte alla settimana</label>
+     <label><input type="radio" name="answer11_2" value="una o più volte alla settimana" <%= 'checked' if session[:answer11_2] == "una o più volte alla settimana" %>>una o più volte alla settimana</label>
  </div>
  <div class="radio">
      <label><input type="radio" name="answer11_2" value="una o più volte al mese" <%= 'checked' if session[:answer11_2] == "una o più volte al mese" %>>una o più volte al mese</label>
