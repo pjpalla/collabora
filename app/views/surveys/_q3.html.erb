@@ -1,4 +1,4 @@
-<h3><span class="label label-danger">Question 3</span></h3><br/>
+<h3><span class="label label-danger">Domanda 3</span></h3><br/>
  <%= f.hidden_field :uid, value: " " %>
  <%#= "Session: #{session[:card_number]}" %>
  <div class="field">
@@ -30,7 +30,7 @@
  
 
 <div class="radio">
-  <label><input type="radio" name="answer03_1" value="Sì" <%= 'checked' if session[:answer03_1] == "Sì" or session[:answer03_1].nil? %> >Sì</label>
+  <label><input type="radio" name="answer03_1" value="Sì" <%= 'checked' if session[:answer03_1] == "Sì" %> >Sì</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="answer03_1" value= "No" <%= 'checked' if session[:answer03_1] == "No" %> >No</label>

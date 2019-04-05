@@ -1,4 +1,4 @@
-<h3><span class="label label-danger">Question 5</span></h3><br/>
+<h3><span class="label label-danger">Domanda 5</span></h3><br/>
  <%= f.hidden_field :uid, value: " " %>
  <%#= "Session: #{session[:card_number]}" %>
  <h5><span class="label label-default">Nel caso si tratti di un farmaco generico</span></h5>
@@ -6,7 +6,7 @@
    <p><%= @questions[7].qtext %></p>
  </div>
  <div class="radio">
-  <label><input type="radio" name="answer05_0" value="Sì" <%= 'checked' if session[:answer05_0] == "Sì" or session[:answer05_0].nil? %> >Sì</label>
+  <label><input type="radio" name="answer05_0" value="Sì" <%= 'checked' if session[:answer05_0] == "Sì" %> >Sì</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="answer05_0" value= "No" <%= 'checked' if session[:answer05_0] == "No" %> >No</label>

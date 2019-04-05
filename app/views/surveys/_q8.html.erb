@@ -1,11 +1,11 @@
-<h3><span class="label label-danger">Question 8</span></h3><br/>
+<h3><span class="label label-danger">Domanda 8</span></h3><br/>
  <%= f.hidden_field :uid, value: " " %>
 
  <div class="field">
    <p><%= @questions[13].qtext %></p>
  </div>
  <div class="radio">
-  <label><input type="radio" name="answer08_0" value="Sì" <%= 'checked' if session[:answer08_0] == "Sì" or session[:answer08_0].nil? %> >Sì</label>
+  <label><input type="radio" name="answer08_0" value="Sì" <%= 'checked' if session[:answer08_0] == "Sì" %> >Sì</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="answer08_0" value= "No" <%= 'checked' if session[:answer08_0] == "No" %> >No</label>

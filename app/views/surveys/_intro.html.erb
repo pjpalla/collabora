@@ -3,8 +3,8 @@
 <%= f.hidden_field :card, value: "aaa" %>
 <div class="input-group">
 <!--  <span class="input-group-addon" id="basic-addon1">Scheda Numero:</span> -->
-<span class="label label-primary">Scheda Numero:</span>
-  <input type="text" class="form-control" placeholder="Scheda Numero" aria-describedby="basic-addon1" name="card_number" value='<%=session[:card_number]%>'>
+<span class="label label-primary">Contatore:</span>
+  <input type="text" class="form-control" placeholder="Contatore" aria-describedby="basic-addon1" name="card_number" value='<%=session[:card_number]%>'>
 </div><br/>
 
 <div class="input-group">
@@ -18,7 +18,7 @@
 
  
 <div class="radio">
-  <label><input type="radio" name="sex" value="M" <%= 'checked' unless session[:sex] == "F"%> >M</label>
+  <label><input type="radio" name="sex" value="M" <%= 'checked' if session[:sex] == "M"%> >M</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="sex" value= "F" <%= 'checked' if session[:sex] == "F" %> >F</label>
@@ -29,7 +29,7 @@
 <div class="input-group">
 <span class="label label-primary">Età stimata:</span>
     <div class="radio">
-      <label><input type="radio" name="eta" value="18-30" <%= 'checked' if session[:eta] == "18-30" or session[:eta].nil? %>>18-30</label>
+      <label><input type="radio" name="eta" value="18-30" <%= 'checked' if session[:eta] == "18-30" %>>18-30</label>
     </div>
     <div class="radio">
       <label><input type="radio" name="eta" value="30-40" <%= 'checked' if session[:eta] == "30-40" %>>30-40</label>

@@ -1,10 +1,10 @@
-<h3><span class="label label-danger">Question 6</span></h3><br/>
+<h3><span class="label label-danger">Domanda 6</span></h3><br/>
  <%= f.hidden_field :uid, value: " " %>
  <div class="field">
    <p><%= @questions[9].qtext %></p>
  </div>
  <div class="radio">
-  <label><input type="radio" name="answer06_0" value="Sì" <%= 'checked' if session[:answer06_0] == "Sì" or session[:answer06_0].nil? %> >Sì</label>
+  <label><input type="radio" name="answer06_0" value="Sì" <%= 'checked' if session[:answer06_0] == "Sì" %> >Sì</label>
 </div>
 <div class="radio">
   <label><input type="radio" name="answer06_0" value= "No" <%= 'checked' if session[:answer06_0] == "No" %> >No</label>
@@ -16,7 +16,7 @@
  
 
     <div class="radio">
-      <label><input type="radio" name="answer06_1" value="reazioni indesiderate" <%= 'checked' if session[:answer06_1] == "reazioni indesiderate" or session[:answer06_1].nil? %>>reazioni indesiderate</label>
+      <label><input type="radio" name="answer06_1" value="reazioni indesiderate" <%= 'checked' if session[:answer06_1] == "reazioni indesiderate" %>>reazioni indesiderate</label>
     </div>
       <div class="radio">
       <label><input type="radio" name="answer06_1" value="inefficacia" <%= 'checked' if session[:answer06_1] == "inefficacia" %>>inefficacia</label>

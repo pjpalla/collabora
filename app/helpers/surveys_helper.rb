@@ -175,6 +175,7 @@ module SurveysHelper
         session_key = ""
         answer = ""
         if qid < 10
+            #key_note = "answer0#{qid}_note".to_sym
             if (qid == 3 and subid == 0) or (qid == 4 and subid == 1) or (qid == 5 and subid == 1) or (qid == 7 and subid == 1)
                 session_key1 = ("answer0#{qid}_drug_name_" + subid.to_s).to_sym
                 session_key2 = ("answer0#{qid}_drug_category_" + subid.to_s).to_sym
@@ -185,16 +186,33 @@ module SurveysHelper
                 answer = session[session_key]
             end
         else
+            #key_note = "answer#{qid}_note".to_sym
             if (qid == 11 and subid == 1)
                 session_key1 = ("answer#{qid}_drug_name_" + subid.to_s).to_sym
                 session_key2 = ("answer#{qid}_drug_category_" + subid.to_s).to_sym
                 session_key3 = ("answer#{qid}_dosage_" + subid.to_s).to_sym
                 answer = session[session_key1] + " " + session[session_key2] + " " + session[session_key3]                
             else
-              session_key = ("answer#{qid}_" + subid.to_s).to_sym
+              #note = session[key_note]
               answer = session[session_key]
             end    
         end
+        
         answer
+    end
+    
+    def get_note(qid)
+        key_base = "answer"
+        if (qid < 10)
+            key = "#{key_base}0#{qid}_note"
+        else
+            key = "#{key_base}#{qid}_note"
+        end
+        
+        
+        note = session[key.to_sym]
+        logger.debug("key: #{key}")
+        logger.debug("note: #{note}")
+        return note
     end
 end
