@@ -238,3 +238,15 @@ h1.survey_index{
 span.glyphicon.glyphicon-plus{
     margin-right: 3px;
 }
+
+fieldset
+{
+  background-color:#CCC;
+  max-width:500px;
+  padding:16px;	
+  border:2px solid;
+  border-color: #5bc0de;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;	
+  border-radius:8px;	
+}
