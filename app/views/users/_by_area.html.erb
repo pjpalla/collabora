@@ -1,0 +1,25 @@
+
+<div class="jumbotron">
+    <h2><%= "#{locals[:zone].upcase}: Persone Intervistate" %></h2>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+     <%#= pie_chart({"Female" => @females, "Male" => @males}) %>
+     <%= users_by_sex %>
+  </div>
+   <div class="col-md-6">
+     <%= users_by_age %>   
+  </div>
+</div><br/>
+
+<!-- <div class="jumbotron">
+    <h2><%#= "Area Geografica: #{locals[:zone]}" %></h2>
+</div>
+
+<div class="row">
+     <div class"col-md-6">
+         <%#= users_by_place %>
+     </div>
+ </div>
+ -->
