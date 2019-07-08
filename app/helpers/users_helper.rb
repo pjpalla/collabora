@@ -37,6 +37,32 @@ module UsersHelper
         h = Hash.new(0)
         ages.each{|a| h[a] += 1}
         users = h
+        logger.info "users dict: #{users}"
+        
+        tmp_users = {"18-30" => 0, "30-40" => 0, "40-50" => 0, "50-60" => 0, "60-70" => 0, ">70" => 0}
+        users.each do |k,v|
+            if (k =~ /18.30/)
+                tmp_users["18-30"] += v
+            elsif (k =~ /30.40/)
+                tmp_users["30-40"] += v
+            elsif (k =~ /40.50/)
+                tmp_users["40-50"] += v
+            elsif (k =~ /50.60/)
+                tmp_users["50-60"] += v
+            elsif (k =~ /60.70/)
+                tmp_users["60-70"] += v
+            elsif (k =~ />70/)
+               tmp_users[">70"] += v
+            end
+        end
+        logger.debug "tmp_users: #{tmp_users}"
+        users = tmp_users
+                    
+                    
+                    
+                                
+                    
+            
         #binding.pry
         #users = users.group(:age).count
         #binding.pry
