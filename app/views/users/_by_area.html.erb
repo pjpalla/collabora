@@ -1,6 +1,6 @@
 
 <div class="jumbotron">
-    <h2><%= "#{locals[:zone].upcase}: Persone Intervistate" %></h2>
+    <h2><span class='homeh1color1'><%= "#{locals[:zone].upcase}" %></span>: Persone Intervistate </h2>
 </div>
 
 <div class="row">
@@ -13,13 +13,15 @@
   </div>
 </div><br/>
 
-<!-- <div class="jumbotron">
-    <h2><%#= "Area Geografica: #{locals[:zone]}" %></h2>
-</div>
+<% if locals[:zone] == "medio campidano" %>
 
-<div class="row">
-     <div class"col-md-6">
-         <%#= users_by_place %>
+     <div class="jumbotron">
+        <h2>Area Geografica: <span class='homeh1color1'><%= " #{locals[:zone]}" %></span></h2>
+    </div>
+    
+    <div class="row">
+         <div class"col-md-6">
+             <%= users_by_place %>
+         </div>
      </div>
- </div>
- -->
+<% end %>
