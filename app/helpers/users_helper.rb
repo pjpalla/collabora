@@ -29,7 +29,8 @@ module UsersHelper
     
     def users_by_age
         
-        users = User.all
+        #users = User.all
+        users = @users
         u = users
         users = users.each{|u| u.age.strip! unless u.age.nil?}
         ages = users.map{|u| u.age}.compact
