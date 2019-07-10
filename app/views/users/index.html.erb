@@ -1,13 +1,13 @@
 
 <%= form_tag("/users/index", method: 'get', remote: true ) do %>
     <% options = @locations.map{|l| l.upcase unless l.nil?} %>
-    <%= select_tag "locations", options_for_select(options, options[1]), multiple: false, class: "selectpicker" %> <%= submit_tag("Invia", class: "btn btn-primary") %>
+    <%= select_tag "locations", options_for_select(options, options[0]), multiple: false, class: "selectpicker" %> <%= submit_tag("Invia", class: "btn btn-primary") %>
     
     <br/><br/>
 
     <div id="area">
         <div class="jumbotron">
-            <h2> Persone Intervistate</h2>
+            <h2><span class="homeh1color1"><%= "#{@location.upcase}"%></span>: Persone Intervistate</h2>
         </div>
     
         <div class="row">
@@ -22,7 +22,7 @@
     
     
         <div class="jumbotron">
-            <h2>Area geografica: <%= @location %> </h2>
+            <h2>Area geografica: <span class='homeh1color1'><%= @location.upcase %></span></h2>
         </div>
     
         <div class="row">
