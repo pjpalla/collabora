@@ -4,6 +4,13 @@ class StatisticsController < ApplicationController
     
     
     def index
+        @locations = ["medio campidano", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto medio campidano", "altro"]
+        @location = "medio campidano"
+        if params[:area]
+            @location = params[:area].downcase!
+            logger.debug "@location: #{@location}"
+        end  
+
         @num_of_indicators = 11
         ### Qui ricaviamo gli intervistati che facendo uso di farmaci generici hanno avuto degli effetti indesiderati
         w = Answer.select('uid').distinct.where("qid = 5 and subid = 0 and answer is not null").map{|a| a.uid}
@@ -39,9 +46,18 @@ class StatisticsController < ApplicationController
         ### Descrizione indicatori
         @descriptions = IndicatorDescription.order('id asc').pluck(:description)
         @descriptions = @descriptions.map{|d| d.capitalize}
-
-        
+       
+        respond_to do |format|
+           if request.xhr?
+              logger.debug "XHR request"
+              logger.debug "ajax param: #{@location}"
+              format.js 
+           else  
+              format.html
+           end  
+       end
     end
+
     
     def show
     end
