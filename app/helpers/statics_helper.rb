@@ -101,7 +101,8 @@ def get_i_by_genre(n)
 end
 
 def get_stacked_data
-        w = Answer.select('uid').distinct.where("qid = 5 and answer <> ''").map{|a| a.uid}
+        #w = Answer.distinct.where("qid = 5 and answer <> ''").where(uid: @uids).pluck(:uid)
+        w = Answer.distinct.where(qid: "5", subid:"0", uid: @uids).where.not(answer: nil).pluck(:uid)
         males =  User.where(sex: "M", uid: w).pluck(:uid)
         females = User.where(sex: "F", uid: w).pluck(:uid)
         ### calcoliamo quindi le percentuali di questi che hanno avuto inequivalenza, reazioni indesiderati ed inefficacia 
