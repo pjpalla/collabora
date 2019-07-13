@@ -12,9 +12,22 @@ class StatisticsController < ApplicationController
         end  
 
         @num_of_indicators = 11
+        @uids = User.where(place: @location).pluck('uid')
+        
+        if @location == "sardegna"
+            @uids = User.all.pluck(:uid)
+        elsif @location == "sardegna eccetto medio campidano"
+            @uids = User.where.not(place: 'medio campidano').pluck(:uid)
+        elsif @location == "altro"
+            @uids = User.where.not(place: @locations).pluck(:uid)
+        end
+        
+        
         ### Qui ricaviamo gli intervistati che facendo uso di farmaci generici hanno avuto degli effetti indesiderati
-        w = Answer.select('uid').distinct.where("qid = 5 and subid = 0 and answer is not null").map{|a| a.uid}
-        to_remove = Answer.select('uid').distinct.where("qid = 1 and subid = 0 and (answer like 'n%' or answer like 'N%')").map{|a| a.uid}
+        w = Answer.distinct.where(qid: "5", subid: "0", uid: @uids).where.not(answer: nil).pluck(:uid)
+        #w = Answer.select('uid').distinct.where("qid = 5 and subid = 0 and answer is not null").map{|a| a.uid}
+        #to_remove = Answer.select('uid').distinct.where("qid = 1 and subid = 0 and (answer like 'n%' or answer like 'N%')").map{|a| a.uid}
+        to_remove = Answer.distinct.where(qid: "1", subid: "0", uid: @uids).where("answer like 'n%' or answer like 'N%'").pluck(:uid)
         filtered_w = []
         w.each do |id|
             if (to_remove.include? id) 
