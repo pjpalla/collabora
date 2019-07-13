@@ -32,7 +32,8 @@ class SurveysController < ApplicationController
   # POST /surveys
   # POST /surveys.json
   def create
-    @questions = Question.all
+    #@questions = Question.all
+    @questions = Question.order(:qid)
     #@questions = questions.sort{|u, w| u.qid <=> w.qid}
     
     session[:survey_params].deep_merge!(params[:survey]) if params[:survey]
