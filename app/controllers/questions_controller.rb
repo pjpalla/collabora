@@ -33,7 +33,10 @@ class QuestionsController < ApplicationController
     # counter = []
      total = []
      
-     Answer.where("qid = ? and  subid = ?", params[:id], 0).each do |a|
+     ### temporary solution for the area of campidano
+     @uids = User.where(place: 'medio campidano').pluck(:uid)
+     Answer.where(qid: params[:id], subid: 0, uid: @uids).each do |a|
+     #Answer.where("qid = ? and  subid = ?", params[:id], 0).each do |a|
          if question_idx.include? a.qid
              #parent_ans = Answer.where(qid: parent_one, subid: 0, uid: a.uid)[0].answer
              parent_ans = qone[a.uid]
@@ -120,7 +123,10 @@ class QuestionsController < ApplicationController
         when 9..10 then 9
         end    
         #logger.warn "question_id: #{question_id}"
-        q = Answer.where(qid: question_id, subid: 0)
+        ### Temporary solution for medio campidano
+        @uids = User.where(place: "medio campidano").pluck(:uid)
+        q = Answer.where(qid: question_id, subid: 0, uid: @uids)
+        # q = Answer.where(qid: question_id, subid: 0)
         h = Hash.new 0
         q.each do |a|
             h[a.uid] = a.answer
