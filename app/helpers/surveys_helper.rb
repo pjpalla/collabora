@@ -91,7 +91,7 @@ module SurveysHelper
         if !STRATUM.include?(stratum)
             stratum = ""
         end    
-        user = User.create(sex: sex, age: age, collection_point: collection_point, card: card, stratum: stratum)
+        user = User.create(sex: sex, age: age, collection_point: collection_point, card: card, stratum: stratum, place: collection_point)
         return user.uid, sex, age, card 
     end
     
@@ -194,10 +194,12 @@ module SurveysHelper
                 answer = session[session_key1] + " " + session[session_key2] + " " + session[session_key3]                
             else
               #note = session[key_note]
+              session_key = ("answer#{qid}_" + subid.to_s).to_sym
               answer = session[session_key]
             end    
         end
-        
+        logger.info "Session Key: #{session_key}"
+        logger.info "Confirmation answer: #{answer}"
         answer
     end
     
