@@ -6,12 +6,13 @@ module QuestionsHelper
     
     QUESTION_IDX = [1,2,3,4,5,6,7]
    
-    def sub_count(qid, subid)
+    def sub_count(qid, subid, uids)
         total = []
-        qone = get_reference_question(qid)
+        qone = get_reference_question(qid, uids)
         
         parent_one = 1
-        Answer.where("qid = ? and  subid = ?", qid, subid).each do |a|
+        Answer.where(qid: qid, subid: subid, uid: uids).each do |a|
+        #Answer.where("qid = ? and  subid = ?", qid, subid).each do |a|
             if QUESTION_IDX.include? qid
                 #parent_ans = Answer.where(qid: parent_one, subid: 0, uid: a.uid)[0].answer
                 parent_ans = qone[a.uid]
@@ -70,13 +71,13 @@ module QuestionsHelper
     end  
     
     
-  def get_reference_question(qid)
+  def get_reference_question(qid, uids)
         question_id = case qid
         when 1..7 then 1
         when 9..10 then 9
         end    
         
-        q = Answer.where(qid: question_id, subid: 0)
+        q = Answer.where(qid: question_id, subid: 0, uid: uids)
         h = Hash.new 0
         q.each do |a|
             h[a.uid] = a.answer
@@ -91,12 +92,12 @@ module QuestionsHelper
   
   
   
-  def get_prescriber(qid, subid)
+  def get_prescriber(qid, subid, uids)
     if qid != 8
         return
     end
     total = []
-    total = Answer.where(qid: 8, subid: 1).map {|a| a.answer}
+    total = Answer.where(qid: 8, subid: 1, uid: uids).map {|a| a.answer}
     
     count_prescriber = Hash.new 0
     count_changer = Hash.new 0
@@ -123,9 +124,10 @@ module QuestionsHelper
 
   end 
   
-  def get_suggestions(qid)
-      answers = Answer.where(qid: 18).map{|a| a.answer}
-      answers = answers.reject{|a| a == ""}
+  def get_suggestions(qid, uids)
+      answers = Answer.where(qid: 18, uid: uids).map{|a| a.answer}
+      answers = answers.reject{|a| a =~ /^(\s)*$/}
+      #answers = answers.reject{|a| a == ""}
   end
   
   def sanitize_drug_name(drug)
