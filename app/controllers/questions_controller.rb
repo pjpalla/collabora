@@ -13,12 +13,38 @@ class QuestionsController < ApplicationController
   end
   
   def show
+     
+    @locations = ["medio campidano", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto medio campidano", "altro"]
+    #@locations = User.distinct.pluck(:place) + @basic_locations
+    #@locations.uniq!
+    
+    @location = "medio campidano"
+    
+    if params[:locations]
+      @location = params[:locations].downcase!
+      logger.debug "@location: #{@location}"
+    end 
+    
+    #@uids = User.where(place: 'medio campidano').pluck(:uid)
+    #### Answer by area ###
+    @uids = User.where(place: @location).pluck(:uid)
+    if @location == "sardegna"
+        @uids = User.all.pluck(:uid)
+    elsif @location == "sardegna eccetto medio campidano"
+        @uids = User.where.not(place: 'medio campidano').pluck(:uid)
+        logger.debug "eccetto: #{@uids.length}"
+    elsif @location == "altro"
+        @uids = User.where.not(place: @locations)
+    end
+      
+      
+      
      @subq_mapping = {1 => "A", 2 => "B", 3 => "C", 4 => "D"} 
      @first_question = 1
      @last_question = 18
      question_idx = [2, 3, 4, 5,  6, 7]
      @subquestion_idx = [4, 5, 7, 11]
-     qone = get_reference_question(params[:id].to_i)
+     qone = get_reference_question(params[:id].to_i, @uids)
      #binding.pry
      #logger.warn "qone: #{qone}"
      
@@ -32,9 +58,8 @@ class QuestionsController < ApplicationController
      
     # counter = []
      total = []
+     #########################
      
-     ### temporary solution for the area of campidano
-     @uids = User.where(place: 'medio campidano').pluck(:uid)
      Answer.where(qid: params[:id], subid: 0, uid: @uids).each do |a|
      #Answer.where("qid = ? and  subid = ?", params[:id], 0).each do |a|
          if question_idx.include? a.qid
@@ -47,7 +72,7 @@ class QuestionsController < ApplicationController
                 end
                 #binding.pry
          end
-          total << a.answer
+         total << a.answer
 
     end
       
@@ -101,6 +126,17 @@ class QuestionsController < ApplicationController
      @suboptions = QuestionOption.where("qid = ? AND subid <> 0", params[:id])
      
      
+     respond_to do |format|
+       if request.xhr?
+          logger.debug "XHR request"
+          logger.debug "ajax param: #{@location}"
+          logger.debug "uids controller: #{@uids.length}"
+          format.js 
+       else  
+        format.html
+       end  
+     end
+     
   end
   
     def edit
@@ -117,15 +153,15 @@ class QuestionsController < ApplicationController
   
   
   private
-  def get_reference_question(qid)
+  def get_reference_question(qid, uids)
         question_id = case qid
         when 1..7 then 1
         when 9..10 then 9
         end    
         #logger.warn "question_id: #{question_id}"
         ### Temporary solution for medio campidano
-        @uids = User.where(place: "medio campidano").pluck(:uid)
-        q = Answer.where(qid: question_id, subid: 0, uid: @uids)
+        #@uids = User.where(place: "medio campidano").pluck(:uid)
+        q = Answer.where(qid: question_id, subid: 0, uid: uids)
         # q = Answer.where(qid: question_id, subid: 0)
         h = Hash.new 0
         q.each do |a|
