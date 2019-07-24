@@ -19,7 +19,7 @@ class StatisticsController < ApplicationController
         elsif @location == "sardegna eccetto medio campidano"
             @uids = User.where.not(place: 'medio campidano').pluck(:uid)
         elsif @location == "altro"
-            @uids = User.where.not(place: @locations).pluck(:uid)
+            @uids = User.where.not(place: @locations).pluck(:uid) ###### da sistemare --RVD!!!!!!
         end
         
         
