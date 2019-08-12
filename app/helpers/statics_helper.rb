@@ -3,6 +3,12 @@ module StaticsHelper
     LOWER_INDICATOR = 1
     UPPER_INDICATOR = 11
     
+
+
+
+    
+
+
 def get_i(n)
     ### Card ranges for indicators i1 - 18
     frange = ("F1016".."F1252") ### franci - 217
@@ -21,38 +27,32 @@ def get_i(n)
     else
         raise ArgumentError, "invalid statistical indicator!"
     end    
-    
-    
-    i = nil
+ 
+   
+   date_limit = DateTime.new(2019, 1, 1) ### In questo modo teniamo conto degli indicatori inseriti utilizzando il modulo per l'inserimento delle interviste 
+   i = nil
    if (indicator == "i9" || indicator == "i10" || indicator == "i11")
-      i = Indicator.where("card between ? and ? or card between ? and ?", 
-      card_range1.first, card_range1.last, card_range2.first, card_range2.last).select(indicator).group("#{indicator}").count 
+      i = Indicator.where(:uid => @uids).where("card between ? and ? or card between ? and ? or created_at >= ?", 
+      card_range1.first, card_range1.last, card_range2.first, card_range2.last, date_limit).select(indicator).group("#{indicator}").count 
        #i = Indicator.where(card: card_range).select(indicator).group("#{indicator}").count
    else
-    #   i_f = Indicator.where(card: frange).select(indicator).group("#{indicator}").count
-    #   i_i = Indicator.where(card: irange).select(indicator).group("#{indicator}").count
-    #   i_b = Indicator.where(card: brange).select(indicator).group("#{indicator}").count
-
-    #   i = {0 => 0, 1 => 0}
-    #   i[0] = i_f[0] + i_i[0] + i_b[0]
-    #   i[1] = i_f[1] + i_i[1] + i_b[1]
        #binding.pry
-      i = Indicator.where("card between ? and ? or card between ? and ? or card between ? and ?", 
-      frange.first, frange.last, irange.first, irange.last, brange.first, brange.last).select(indicator).group("#{indicator}").count  
+      i = Indicator.where(:uid => @uids).where("card between ? and ? or card between ? and ? or card between ? and ? or created_at >= ?", 
+      frange.first, frange.last, irange.first, irange.last, brange.first, brange.last, date_limit).select(indicator).group("#{indicator}").count  
       #i = Indicator.where(card: global_range).select(indicator).group("#{indicator}").count
    end           
    #rimappiamo le chiavi dell'hash i
-   if (i.keys().length > 2)
-       sum_keys = 0
-       i.keys().each do |k|
-           if k != 0
-               sum_keys += i[k]
-           end
-        #binding.pry   
-        end    
-        i[1] = sum_keys
-        i.slice!(0, 1)
-   end    
+#   if (i.keys().length > 2 or !i.keys().include?(0))
+   sum_keys = 0
+   i.keys().each do |k|
+       if k != 0
+           sum_keys += i[k]
+       end
+    #binding.pry   
+    end    
+    i[1] = sum_keys
+    i.slice!(0, 1)
+   #end    
            
    remap = {0 => "invariato", 1 => "positivo"}
    
@@ -76,16 +76,90 @@ def get_i(n)
    
 end
 
+def get_sub_indicators(n, interviewed)
+    ### sub indicators for i8 ###
+    lower_limit = 1
+    upper_limit = 6
+    sub_range = (lower_limit..upper_limit)
+    counter = Array.new(upper_limit, 0)
+    buffer = Array.new(upper_limit, 0)
+    
+    if n == 8
+        index = 0
+        sub_range.each do |i|
+            indicator = "i" + n.to_s + "_#{i}"
+            tmp_partial = Indicator.where(:uid => @uids).where("#{indicator} <> 0 and #{indicator} is not NULL").count
+            unless tmp_partial.nil? 
+                tmp_total = (100*(tmp_partial / interviewed.to_f)).round(2)
+            else
+                tmp_partial = 0
+                tmp_total = 0
+            end    
+            buffer[index] = tmp_partial
+            counter[index] = tmp_total
+            index += 1
+            #binding.pry
+            end     
+    end
+    
+    ### create the hash to build the bar chart
+    h = {}
+    hlist = []
+    key_index = 1
+    
+    counter.each do |c|
+        key_name = "s" + key_index.to_s
+        h[key_name] = counter[key_index - 1]
+        key_index += 1
+    end
+    
+    
+    h.each do |k,v|
+       idx = k.split("s")[1]
+       element = {:name => k, :data => {"s#{idx}" => v}}
+       hlist.append(element)
+    end
+    
+    return hlist
+    #return counter, buffer, h
+end
+        
+    
+    
+
 
 def get_i_by_genre(n)
+    
+        ### Card ranges for indicators i1 - 18
+    frange = ("F1016".."F1252") ### franci - 217
+    irange = ("I1081".."I1552") ## ila - 380
+    brange = ("B0001".."B0317") ##bb - 157
+  
+    
+    ### Card range for indicators i9, i10, i11
+    card_range1 = ("I1262".."I1552") ##204
+    card_range2 = ("B0168".."B0317") ##68
+    
+    date_limit = DateTime.new(2019, 1, 1) ### In questo modo teniamo conto degli indicatori inseriti utilizzando il modulo per l'inserimento delle interviste 
     ###Selezioniamo gli id degli utenti con i1 positivo
     indicator = "i"
     unless n < LOWER_INDICATOR || n > UPPER_INDICATOR
         indicator += n.to_s
     else
         raise ArgumentError, "invalid statistical indicator!"
+    end 
+    
+    ## In questo caso @uids individua gli utenti in relazione alla location; uids sono gli utenti di quella location per cui è l'indicatore risulta valorizzato ad 1
+    ## Alcune differenze tra il numero di persone che hanno mutato approccio dopo il colloquio e la relativa ripartizione per sesso sono ascrivibili al fatto che in alcuni casi
+    ## il campo sesso non è stato compilato. (Tenere conto del fatto che in alcuni casi non è compilato il campo card associato agli utenti)
+    
+    if (indicator == "i9" || indicator == "i10" || indicator == "i11")
+        uids = Indicator.where(:uid => @uids).where("card between ? and ? or card between ? and ? or created_at >= ?", 
+        card_range1.first, card_range1.last, card_range2.first, card_range2.last, date_limit).where("#{indicator} = 1 or #{indicator} = 2").pluck(:uid)
+    else
+        uids = Indicator.where(:uid => @uids).where("card between ? and ? or card between ? and ? or card between ? and ? or created_at >= ?", 
+        frange.first, frange.last, irange.first, irange.last, brange.first, brange.last, date_limit).where("#{indicator} = 1 or #{indicator} = 2").pluck(:uid)
     end    
-    uids = Indicator.where("#{indicator} = 1").pluck(:uid)
     i_genre = User.select('sex').where(uid: uids).group(:sex).count
     
     if i_genre.keys.length == 1
@@ -101,8 +175,13 @@ def get_i_by_genre(n)
 end
 
 def get_stacked_data
+        
         #w = Answer.distinct.where("qid = 5 and answer <> ''").where(uid: @uids).pluck(:uid)
         w = Answer.distinct.where(qid: "5", subid:"0", uid: @uids).where.not(answer: nil).pluck(:uid)
+        to_remove = Answer.distinct.where(qid: "1", subid: "0", uid: @uids).where("answer like 'n%' or answer like 'N%'").pluck(:uid)
+        filtered_w = w - to_remove
+        w = filtered_w
+        
         males =  User.where(sex: "M", uid: w).pluck(:uid)
         females = User.where(sex: "F", uid: w).pluck(:uid)
         ### calcoliamo quindi le percentuali di questi che hanno avuto inequivalenza, reazioni indesiderati ed inefficacia 

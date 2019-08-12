@@ -17,36 +17,59 @@
 <% 1.upto(@num_of_indicators) do |n| %>
     <h3 class="stat <%= cycle('black', 'green', 'brown') %> "><span class='homeh1color2'><%=locals[:zone].titleize %></span>: <%= @descriptions[n - 1].capitalize %></h4>
     <div class="well">
+        <div class="row">
+          <div class="col-md-6">
+             <% col = n.odd? ? ['#FF5733', '#075689'] : ['#C70039', '#50C214'] %>
+             <%= pie_chart(@icounts[n - 1], colors: col, library: {title: n < 8 || n == 9 ? "#{@descriptions[n - 1]} - modifica approccio dopo il colloquio" : "#{@descriptions[n - 1]}", pieSliceText: 'percentage'}) %>
+          </div>
+          <div class="col-md-6">
+            <% vmax = @counts_by_genre[n - 1].values.max %>
+            <% vmin = 0; if vmax.nil?
+                            @vrange = 0
+                         else    
+                            @vrange = (vmax..vmin).to_a 
+                         end %>
+             <% custom_title = "Approccio positivo per genere" %>
+             <% if n == 8 %>
+                  <% custom_title = "Suggerimento per genere" %>
+             <% elsif n == 10 %>
+                  <% custom_title = "Consapevolezza per genere" %>
+             <% elsif n == 11 %>
+                  <% custom_title = "Lettura per genere" %>
+             <% end %>     
+             <%= column_chart(@counts_by_genre[n - 1],  colors: ["#a48a9e"], library: {backgroundColor: "#eee", title: custom_title, vAxis: {ticks: @vrange}}) %>
+          </div>
+        </div>
+        <% if n == 8 %>
+            <% chart_title = "Tipologia di suggerimento (%)" %>
+              <div class = "row">
+                  <div class="col-md-6">
+                    <%= bar_chart(@subindicators, colors: ["#c70039", "#50c214", "#075689", "#ff5733", "#ff9900", "#64360D"], library: {backgroundColor: "#eee", title: chart_title, bar: {groupWidth: '100%'}}) %> 
+                  </div>
+                  <div class="col-md-6">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Simbolo</th>
+                          <th scope="col">Suggerimento</th>
+                          <th scope="col">Significato</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <% idx = 1; @subindicator_descriptions.each do |sd| %>
+                        <tr>
+                            <td><div class='<%= "s#{idx}"%>'></div></td>
+                            <td><strong></b><%= "s#{idx}" %></strong></td>
+                            <td><%= sd %></td>                    
+                        </tr>
+                      <% idx += 1 %>     
+                      <% end %>    
+                      </tbody>
+                     </table>  
+                  </div>
+            </div>    
 
-    <div class="row">
-        
-
-      <div class="col-md-6">
-         <% col = n.odd? ? ['#FF5733', '#075689'] : ['#C70039', '#50C214'] %>
-         <%= pie_chart(@icounts[n - 1], colors: col, library: {title: n < 8 || n == 9 ? "#{@descriptions[n - 1]} - modifica approccio dopo il colloquio" : "#{@descriptions[n - 1]}", pieSliceText: 'percentage'}) %>
-         <%#= users_by_sex %>
-      </div>
-       <div class="col-md-6">
-        <% vmax = @counts_by_genre[n - 1].values.max %>
-        <% vmin = 0; if vmax.nil?
-                        @vrange = 0
-                     else    
-                        @vrange = (vmax..vmin).to_a 
-                     end %>
-         <% custom_title = "Approccio positivo per genere" %>
-         <% if n == 8 %>
-              <% custom_title = "Suggerimento per genere" %>
-         <% elsif n == 10 %>
-              <% custom_title = "Consapevolezza per genere" %>
-         <% elsif n == 11 %>
-              <% custom_title = "Lettura per genere" %>
-         <% end %>     
-         <%= column_chart(@counts_by_genre[n - 1],  colors: ["#a48a9e"], library: {backgroundColor: "#eee", title: custom_title, vAxis: {ticks: @vrange}}) %>
-         <%#= pie_chart(@icounts[n - 1], colors: col, library: {title: n < 8 ? "#{@descriptions[n - 1]} - modifica approccio dopo il colloquio" : "#{@descriptions[n - 1]}", pieSliceText: 'value'}) %>
-
-      </div>
-    </div>
-
+    <% end %>        
     </div>
  <% end %>
  </div>

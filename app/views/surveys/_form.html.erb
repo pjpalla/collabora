@@ -28,7 +28,9 @@
           <% else %>
               <li><a><%= f.submit "invia" %></a></li>
           <% end %>
+        <li><a><%= link_to "Abbandona", surveys_leave_path  %></a></li>
     </ul>
+    
 </nav>
 
     <%= render "#{@survey.current_step}", :f => f %>    

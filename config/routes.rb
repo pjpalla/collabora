@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   
-  
+  get 'surveys/leave'
   resources :surveys
+  
+  
+  
   resources :patients do 
     resource :profile
   end  

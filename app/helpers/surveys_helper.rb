@@ -2,6 +2,7 @@ module SurveysHelper
     
     USER_KEYS = [:card_number, :collection_point, :sex, :eta]
     NUM_OF_INDICATORS = 11
+    NUM_OF_SUBINDICATORS = 6
     STRATUM = ["lc basso", "lc medio", "lc alto"]
     
     def session_processor(user_id)
@@ -80,6 +81,15 @@ module SurveysHelper
     end    
     
     
+    def build_default_card_number
+        card_number = ""
+        max_card = User.where("card like 'b%' or card like 'B%'").maximum('card')
+        int_part = max_card.split("B")[1].to_i + 1
+        card_number = max_card[0, 2] + int_part.to_s
+        card_number
+    end    
+        
+    
     def create_user
                 ## User creation
         sex = session[:sex]
@@ -116,14 +126,15 @@ module SurveysHelper
     def count_indicators(uid, card)
        indicators = nil
        counter = Array.new(NUM_OF_INDICATORS, 0)
+       i8_sub_counter = Array.new(NUM_OF_SUBINDICATORS, 0)
        session_note_keys = session.keys.select{|key| key.to_s.match(/(\w+)_note/)}
        
        session_note_keys.each do |key|
            note = session[key]
-           indicators = note.scan(/i[1-9]\d?./)
+           indicators = note.scan(/i[1-9]\d?_?[1-6]?/)
                  indicators.each do |indicator|
                         case indicator
-                            when /i1\D/ 
+                            when /i1\z/ 
                                 counter[0] += 1
                             when /i2/
                                 counter[1] += 1
@@ -137,8 +148,21 @@ module SurveysHelper
                                 counter[5] += 1
                             when /i7/
                                 counter[6] += 1
-                            when /i8/
+                            when /i8_?[1-6]?/
                                 counter[7] += 1
+                                if indicator =~ /i8_1/
+                                    i8_sub_counter[0] += 1
+                                elsif indicator =~ /i8_2/
+                                    i8_sub_counter[1] += 1
+                                elsif indicator =~ /i8_3/
+                                    i8_sub_counter[2] += 1
+                                elsif indicator =~ /i8_4/
+                                    i8_sub_counter[3] += 1
+                                elsif indicator =~ /i8_5/
+                                    i8_sub_counter[4] += 1
+                                elsif indicator =~ /i8_6/
+                                    i8_sub_counter[5] += 1
+                                end    
                             when /i9/
                                 counter[8] += 1
                             when /i10/
@@ -162,6 +186,13 @@ module SurveysHelper
          i.i9 = counter[8]
          i.i10 = counter[9]
          i.i11 = counter[10]
+         #### subindicators
+         i.i8_1 = i8_sub_counter[0]
+         i.i8_2 = i8_sub_counter[1]
+         i.i8_3 = i8_sub_counter[2]
+         i.i8_4 = i8_sub_counter[3]
+         i.i8_5 = i8_sub_counter[4]
+         i.i8_6 = i8_sub_counter[5]
        end #unless indicators.nil? || indicators.empty?
        ind_subset = ind.attributes.select{|k,v| k.to_s.match(/i[0-9]\d?/)}
        subset_values = ind_subset.values

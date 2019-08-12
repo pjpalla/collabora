@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190311121007) do
+ActiveRecord::Schema.define(version: 20190806161213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,12 @@ ActiveRecord::Schema.define(version: 20190311121007) do
     t.integer  "i9"
     t.integer  "i10"
     t.integer  "i11"
+    t.integer  "i8_1"
+    t.integer  "i8_2"
+    t.integer  "i8_3"
+    t.integer  "i8_4"
+    t.integer  "i8_5"
+    t.integer  "i8_6"
   end
 
   create_table "members", force: :cascade do |t|

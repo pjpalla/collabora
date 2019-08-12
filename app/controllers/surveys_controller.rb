@@ -1,5 +1,6 @@
 class SurveysController < ApplicationController
   include SurveysHelper
+  
   before_action :set_survey, only: [:show, :edit, :update, :destroy]
   
   
@@ -9,6 +10,8 @@ class SurveysController < ApplicationController
   # GET /surveys.json
   def index
     @surveys = Survey.paginate(:page => params[:page], :per_page => 3).order('id ASC')
+
+    
     #@surveys = Survey.all
   end
 
@@ -23,6 +26,7 @@ class SurveysController < ApplicationController
     session[:survey_params] ||= {}
     @survey = Survey.new(session[:survey_params])
     @survey.current_step = session[:survey_step]
+    @default_card = build_default_card_number
   end
 
   # GET /surveys/1/edit
@@ -192,6 +196,12 @@ class SurveysController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  def leave
+    session_cleaner
+    redirect_to :controller => "pages", :action => "home" 
+  end  
 
   private
     # Use callbacks to share common setup or constraints between actions.

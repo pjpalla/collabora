@@ -4,7 +4,7 @@
 <div class="input-group">
 <!--  <span class="input-group-addon" id="basic-addon1">Scheda Numero:</span> -->
 <span class="label label-primary">Contatore:</span>
-  <input type="text" class="form-control" placeholder="Contatore" aria-describedby="basic-addon1" name="card_number" value='<%=session[:card_number]%>'>
+  <input type="text" class="form-control" placeholder="Contatore" aria-describedby="basic-addon1" name="card_number" value='<%=result = session[:card_number].nil? ? @default_card : session[:card_number] %>'>
 </div><br/>
 
 <div class="input-group">
