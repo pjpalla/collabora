@@ -139,7 +139,23 @@ module QuestionsHelper
          drug = wrong_to_corr[drug]
      end     
      drug    
-  end    
+  end 
+  
+  
+  def clean_counts(counts)
+      l = []
+      h = Hash.new
+      counts.each do |k,v|
+            tmp_key = k.gsub(" / ", "/")
+            tmp_key = k.gsub("  ", " ")
+            if h.keys.include?(tmp_key)
+                h[tmp_key] += v
+            else
+               h[tmp_key] = v    
+            end
+      end        
+      h
+  end      
     
     
 end
