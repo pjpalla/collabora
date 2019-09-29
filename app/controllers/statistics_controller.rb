@@ -54,14 +54,14 @@ class StatisticsController < ApplicationController
         males =  User.where(sex: "M", uid: filtered_w).pluck(:uid)
         females = User.where(sex: "F", uid: filtered_w).pluck(:uid)
         ### calcoliamo quindi le percentuali di questi che hanno avuto inequivalenza, reazioni indesiderati ed inefficacia 
-        lillo = Answer.select('answer').where.not(answer: nil).where({qid: 1, subid: 1, uid: w[0..100]}).group(:answer).count('answer')
+        #lillo = Answer.select('answer').where.not(answer: nil).where({qid: 1, subid: 1, uid: w[0..100]}).group(:answer).count('answer')
         #@mycounts = Answer.select('answer').where.not(answer: nil).where(qid: 1, subid: 1, uid: filtered_w[0..277]).group(:answer).count('answer')
         @mycounts = Answer.select('answer').where.not(answer: nil).where(qid: 1, subid: 1, uid: filtered_w).group(:answer).count('answer') ### indicatore i0
         ### Percentuali degli effetti indesiderati divisi per genere
         @count_males = Answer.select('answer').where(qid: 1, subid: 1, uid: males).group(:answer).count('answer')
         @count_females = Answer.select('answer').where(qid: 1, subid: 1, uid: females).group(:answer).count('answer')
         @stacked_data = get_stacked_data
-
+        #logger.debug "mycounts: #{@mycounts}"
         #binding.pry
         #### Indicatori statistici
 
@@ -72,7 +72,7 @@ class StatisticsController < ApplicationController
             @icounts[n - 1] = get_i(n)
         end    
         1.upto(@num_of_indicators){|n| @counts_by_genre[n - 1] = get_i_by_genre(n)}
-        
+        #binding.pry
         ### i8 subindicators ###
         #### numero intervistati ricavati dall'indicatore i8
         interviewed = @icounts[7].values.sum

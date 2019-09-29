@@ -9,7 +9,7 @@ class SurveysController < ApplicationController
   # GET /surveys
   # GET /surveys.json
   def index
-    @surveys = Survey.paginate(:page => params[:page], :per_page => 3).order('id ASC')
+    @surveys = Survey.paginate(:page => params[:page], :per_page => 5).order('id ASC')
 
     
     #@surveys = Survey.all

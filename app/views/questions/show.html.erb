@@ -92,7 +92,7 @@
                  
                  <%= pie_chart(@counts, library: {sliceVisibilityThreshold: 1/1000}) %>
                  <%# binding.pry %>
-                 <%= pie_chart(@counts, library: {sliceVisibilityThreshold: 1/1000, pieSliceText: 'value'}) %>
+                 <%#= pie_chart(@counts, library: {sliceVisibilityThreshold: 1/1000, pieSliceText: 'value'}) %>
              <% end %>
         </div><br/>    
         
@@ -100,12 +100,7 @@
     
         <% @subquestions.each do |sq| %>
         <div class="col-md-8">
-            <!--<#% binding.pry %>
-            <%# puts "subqid: #{sq.subid}" %>
-            <%# puts "subq_mapping: #{@subq_mapping[sq.subid]}" %> -->
-            <h1 class="h1 question"><%="Sottodomanda #{@subq_mapping[sq.subid]}"%>
-    
-            </h1>
+            <h1 class="h1 question"><%="Sottodomanda #{@subq_mapping[sq.subid]}"%></h1>
             <div class="well question-block subquestion-description">
                 <h3>Descrizione</h3>
                 <%= sq.qtext %>

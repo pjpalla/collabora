@@ -52,6 +52,7 @@
               <% custom_title = "Lettura per genere" %>
          <% end %>     
          <%= column_chart(@counts_by_genre[n - 1],  colors: ["#a48a9e"], library: {backgroundColor: "#eee", title: custom_title, vAxis: {ticks: @vrange}}) %>
+         <!-- add -->
          <%#= pie_chart(@icounts[n - 1], colors: col, library: {title: n < 8 ? "#{@descriptions[n - 1]} - modifica approccio dopo il colloquio" : "#{@descriptions[n - 1]}", pieSliceText: 'value'}) %>
       </div>
     </div>
