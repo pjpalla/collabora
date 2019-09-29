@@ -154,7 +154,7 @@
  }
  
  #q3bar{
-     height: 750px;
+     //height: 750px;
  }
  
  .digg_pagination {
@@ -289,4 +289,20 @@ div.s6{
     width: 24px;
     height: 12px;
     background-color: #64360d;
+}
+
+/*div#chart-1[style]{
+    height: 950px !important;
+}
+
+div#chart-2[style]{
+    height: 950px !important;
+}
+*/
+div#bc1_q3[style], div#bc1_q7s1[style], div#bc2_q7s1[style]{
+    height: 950px !important;
+}
+
+div#bc2_q3[style]{
+    height: 950px !important;
 }
