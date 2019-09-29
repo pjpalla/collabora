@@ -113,6 +113,10 @@ class QuestionsController < ApplicationController
      #binding.pry
      @counts.slice!("sì", "no") if [5, 6, 7].include? @question.qid
      
+     ### Here we remove the key "nessuna risposta" from the hash
+     @counts.reject!{|k| k == "nessuna risposta"}
+     #### Here we clean duplicate values
+     @counts = clean_counts(@counts)
      
      @count_drugs = filter_counts(@count_drugs, 1)
      ###here we sort by value in descending order
@@ -124,7 +128,7 @@ class QuestionsController < ApplicationController
      #logger.debug "count_categories: #{@count_categories}"
      @subquestions = Question.where("qid = ? AND subid <> 0", params[:id])
      @suboptions = QuestionOption.where("qid = ? AND subid <> 0", params[:id])
-     
+     #binding.pry
      
      respond_to do |format|
        if request.xhr?
