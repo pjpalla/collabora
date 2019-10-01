@@ -294,6 +294,7 @@ end
        elapsed_time = Drug.where("drug_name = ?", drug_name).pluck(:elapsed_time)
        elapsed_counts = Hash[elapsed_time.group_by{|e| e}.map{|k, v| [k, v.count]}]
        elapsed_counts.delete_if{|k, v| k.nil?}
+       elapsed_counts = clean_counts(elapsed_counts)
        
      
      
@@ -310,6 +311,23 @@ end
        #### Here we merge the hashing summing the values corresponding to the same key
        hash_array.each { |subhash| subhash.each { |prod, value| res[prod] += value } }
        res    
-    end   
+    end
+    
+    
+    
+    def clean_counts(counts)
+      l = []
+      h = Hash.new
+      counts.each do |k,v|
+            tmp_key = k.gsub(" / ", "/")
+            tmp_key = k.gsub("  ", " ")
+            if h.keys.include?(tmp_key)
+                h[tmp_key] += v
+            else
+               h[tmp_key] = v    
+            end
+      end        
+      h
+  end      
    
 end
