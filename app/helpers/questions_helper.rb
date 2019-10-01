@@ -133,7 +133,8 @@ module QuestionsHelper
   def sanitize_drug_name(drug)
      wrong_to_corr = {"chetoprofene" => "ketoprofene", "paracetamolo generico" => "paracetamolo", 
      "enn" => "en", "efferalgan gusto pompelmo" => "efferalgan", "loperamide hexal" => "loperamide", 
-     "ibuprofene generico" => "ibuprofene","atovarstatina" => "atorvastatina", "moment act" => "momentact"}
+     "ibuprofene generico" => "ibuprofene","atovarstatina" => "atorvastatina", "moment act" => "momentact", "desloratadina sandoz" => "desloratadina",
+     "oki stask" => "okitask"  }
      
      if wrong_to_corr.keys.include? drug
          drug = wrong_to_corr[drug]
