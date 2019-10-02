@@ -61,7 +61,6 @@ class QuestionsController < ApplicationController
      #########################
      
      Answer.where(qid: params[:id], subid: 0, uid: @uids).each do |a|
-     #Answer.where("qid = ? and  subid = ?", params[:id], 0).each do |a|
          if question_idx.include? a.qid
              #parent_ans = Answer.where(qid: parent_one, subid: 0, uid: a.uid)[0].answer
              parent_ans = qone[a.uid]
@@ -99,7 +98,8 @@ class QuestionsController < ApplicationController
               unless drug.nil? || drug == ""
                     drug = sanitize_drug_name(drug)
                     @count_drugs[drug] += 1
-              end   
+              end
+             
               unless category.nil? || category == ""
                     @count_categories[category] += 1
               end
@@ -107,20 +107,22 @@ class QuestionsController < ApplicationController
            
            @counts[resp] += 1
         end
-    #binding.pry 
-    logger.debug "Counts: #{@counts}"
+ 
+    #logger.debug "Counts: #{@counts}"
      #binding.pry
      #binding.pry
      @counts.slice!("sì", "no") if [5, 6, 7].include? @question.qid
-     
      ### Here we remove the key "nessuna risposta" from the hash
      @counts.reject!{|k| k == "nessuna risposta"}
      #### Here we clean duplicate values
      @counts = clean_counts(@counts)
+     #binding.pry
      
      @count_drugs = filter_counts(@count_drugs, 1)
+     #binding.pry
      ###here we sort by value in descending order
      @count_drugs = (@count_drugs.sort_by{|drug, count| -count}).to_h
+     
      
      @count_categories = filter_counts(@count_categories, 1)
      @count_categories = (@count_categories.sort_by{|category, count| -count}).to_h
@@ -129,7 +131,7 @@ class QuestionsController < ApplicationController
      @subquestions = Question.where("qid = ? AND subid <> 0", params[:id])
      @suboptions = QuestionOption.where("qid = ? AND subid <> 0", params[:id])
      #binding.pry
-     
+     logger.debug "count_drugs: #{@count_drugs}"
      respond_to do |format|
        if request.xhr?
           logger.debug "XHR request"
@@ -174,9 +176,9 @@ class QuestionsController < ApplicationController
         return h
   end
   
-  def filter_counts(counts, threshold = 1)
-      w = counts.select{|k, v| v > threshold}
-  end
+#   def filter_counts(counts, threshold = 1)
+#       w = counts.select{|k, v| v > threshold}
+#   end
   
   
   
