@@ -47,7 +47,7 @@ module QuestionsHelper
                     count_categories[category] += 1
               end
             end
-
+            #binding.pry
             counts[resp] += 1
         end
         
@@ -87,7 +87,12 @@ module QuestionsHelper
   
   
   def filter_counts(counts, threshold = 1)
-            w = counts.select{|k, v| v > threshold}
+            if counts.keys.length > 30
+                w = counts.select{|k, v| v > threshold}
+            else
+                w = counts
+            end
+            w
   end
   
   
@@ -147,13 +152,14 @@ module QuestionsHelper
       l = []
       h = Hash.new
       counts.each do |k,v|
-            tmp_key = k.gsub(" / ", "/")
-            tmp_key = k.gsub("  ", " ")
+            tmp_key = k.gsub(/\s*\/\s*/, '/')
+            tmp_key = tmp_key.gsub("  ", " ")
             if h.keys.include?(tmp_key)
                 h[tmp_key] += v
             else
                h[tmp_key] = v    
             end
+            #binding.pry
       end        
       h
   end      
