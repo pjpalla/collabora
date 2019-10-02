@@ -54,9 +54,21 @@
         <h1 class='text-primary'>Risposte</h1> <br/>
           
          <% if @question.qid == 3 %>
-         
-            <%= bar_chart(@count_drugs, id: "bc1_q3", colors: ["green", "#29970E"], library: {height: "900", chartArea: {width: '60%', height: '80%'},  backgroundColor: "#eee", title: "Nome Farmaco", hAxis: {format: '0'}, vAxis: {textStyle:{fontSize: 10}}}) %>
-            <%= bar_chart(@count_categories, id: "bc2_q3", colors: ["purple", "#4C0E97  "], library: {height: "900", chartArea: {width: '60%', height: '80%'}, backgroundColor: "#eee", title: "Categoria Farmacoterapeutica", vAxis: {textStyle:{fontSize: 10}}}) %>      
+            <% if @count_drugs.length < 10 %>
+                <% drug_height = "800" %>
+            <% else %>
+                <% drug_height = "900" %>            
+            <% end %>
+            <% if @count_categories.length < 10 %>
+                <% category_height = "800" %>
+            <% else %>
+                <% category_height = "900" %>            
+            <% end %>                
+        
+            
+            <%= bar_chart(@count_drugs, id: "bc1_q3", colors: ["green", "#29970E"], library: {height: drug_height, chartArea: {width: '60%', height: '80%'},  backgroundColor: "#eee", title: "Nome Farmaco", hAxis: {format: '0'}, vAxis: {textStyle:{fontSize: 10}}}) %>
+            <%= bar_chart(@count_categories, id: "bc2_q3", colors: ["purple", "#4C0E97  "], library: {height: category_height, chartArea: {width: '60%', height: '80%'}, backgroundColor: "#eee", title: "Categoria Farmacoterapeutica", hAxis: {format: '0'}, vAxis: {textStyle:{fontSize: 10}}}) %>      
+             
              <%#= bar_chart(@count_drugs,  id: "bc1_q3", colors: ["green", "#29970E"], library: {backgroundColor: "#eee", title: "Nome Farmaco", hAxis: {format: '0'}}) %>
              <%#= bar_chart(@count_drugs, colors: ["green", "#29970E"], library: {backgroundColor: "#eee", title: "Nome Farmaco", height: 1700,  bar: {groupWidth: "55%"}, chartArea: {height: '95%'}, vAxis: {textStyle:{color: 'red', fontSize: 10}}}) %>             
              <%#= bar_chart(@count_categories, colors: ["purple", "#4C0E97  "], library: {backgroundColor: "#eee", title: "Categoria Farmacoterapeutica"}) %> 
@@ -155,6 +167,8 @@
              <%#= bar_chart(count, colors: ["orange"], library: {backgroundColor: "#eee", title: "Prescrittore e Modificatore della terapia"})%>
          <% else %>
              <% counts = sub_count(sq.qid, sq.subid, locals[:uids])[0] %>
+             <%= counts.reject!{|k| k == "nessuna risposta"} %>
+             <%#= debug counts %>
              <%# binding.pry %>
              <% if counts.keys.length < 3 %>
                  <%= pie_chart(counts) %>
