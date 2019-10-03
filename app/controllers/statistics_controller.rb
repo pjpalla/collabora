@@ -128,6 +128,7 @@ class StatisticsController < ApplicationController
     end
     
     def drugs
+        @black_list = ["castrol", "farmaco generico", "magramir"]
         @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").paginate(:page => params[:page]).order('drug_name ASC')
         
     end
