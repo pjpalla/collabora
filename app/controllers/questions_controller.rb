@@ -118,13 +118,13 @@ class QuestionsController < ApplicationController
      @counts = clean_counts(@counts)
      #binding.pry
      
-     @count_drugs = filter_counts(@count_drugs, 1)
+     @count_drugs = filter_counts(@count_drugs, 0)
      #binding.pry
      ###here we sort by value in descending order
      @count_drugs = (@count_drugs.sort_by{|drug, count| -count}).to_h
      
      
-     @count_categories = filter_counts(@count_categories, 1)
+     @count_categories = filter_counts(@count_categories, 0)
      @count_categories = (@count_categories.sort_by{|category, count| -count}).to_h
      #binding.pry
      #logger.debug "count_categories: #{@count_categories}"

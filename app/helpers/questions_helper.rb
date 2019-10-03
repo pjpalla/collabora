@@ -140,9 +140,14 @@ module QuestionsHelper
   
   def sanitize_drug_name(drug)
      wrong_to_corr = {"chetoprofene" => "ketoprofene", "paracetamolo generico" => "paracetamolo", 
-     "enn" => "en", "efferalgan gusto pompelmo" => "efferalgan", "loperamide hexal" => "loperamide", 
+     "enn" => "en", "efferalgan al gusto pompelmo" => "efferalgan", "loperamide hexal" => "loperamide", 
      "ibuprofene generico" => "ibuprofene","atovarstatina" => "atorvastatina", "moment act" => "momentact", "desloratadina sandoz" => "desloratadina",
-     "oki stask" => "okitask"  }
+     "oki stask" => "okitask", "alcion" => "halcion", "aldol" => "haldol", "antimicotico generico" => "antimicotico", "antipertensivo generico" => "antipertensivo",
+     "carbolitium" => "carbolithium", "dobergin" => "dopergin", "duplamox" => "neoduplamox", "enantium" => "enantyum", "enteregermia" => "enterogermina",
+     "ferrograd" => "ferro-grad", "metotrexate sottocutanea" => "methotrexate", "naprosin" => "naprosyn", "neoborocillina" => "neo borocillina",
+     "novarapid" => "novorapid", "oncocarbide" => "onco carbide", "penicillina iniezione" => "penicillina", "pillola anticoncezionale generico" => "pillola anticoncezionale",
+     "simvastatin" => "simvastatina", "statina generico" => "statine", "tamsulosina cloridrato" => "tamsulosina", "tirosin fiale" => "tirosint",
+     "votaren" => "voltaren", "yasminelle generico" => "yasminelle", "ziprexa" => "zyprexa", "zolofov" => "zoloft", "zyrolic" => "zyloric"}
      
      if wrong_to_corr.keys.include? drug
          drug = wrong_to_corr[drug]
