@@ -61,6 +61,9 @@ module QuestionsHelper
                 
         
         counts.except!("nessuna risposta") if (qid == 11 && subid == 2) || (qid == 6 && subid == 1)
+        if (qid == 1 && subid == 1){
+            counts.reject!{|k| k == "nessuna risposta"}
+        }
         #binding.pry
         count_drugs = filter_counts(count_drugs, 0)
         ##here we sort by value in descending order
