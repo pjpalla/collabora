@@ -160,7 +160,13 @@ module QuestionsHelper
      wrong_to_corr = { "antipiretico" => "analgesico-antipiretico", "antidolorifici e antipiretici" => "analgesico-antipiretico",
      "analgesico e antipiretico" =>  "analgesico-antipiretico", "antidolorifico" => "fans", "antiinfiammatorio" => "fans",
      "antinfiammatorio" => "fans", "antiinfiammatori" => "fans", "antidolorifici"  => "fans", "antinfluenzali" => "fans", 
-     "antiinfluenzali" => "fans", "antinfiammatorio non steroideo" => "fans", "fans" => "FANS" 
+     "antiinfluenzali" => "fans", "antinfiammatorio non steroideo" => "fans", "fans" => "FANS", "analgesico" => "analgesici oppioidi",
+     "oppioide" => "analgesici oppioidi", "antiipertensivo" => "antipertensivi", "trattamento dell'ipertensione" => "antipertensivi",
+     "generico per la pressione" => "antipertensivi", "per la pressione generico" => "antipertensivi", "antipercolesterolemico" => "ipocolesterolenizzanti",
+     "ipolipemizzante" => "ipocolesterolenizzanti", "per il colesterolo" => "ipocolesterolenizzanti", "statine" => "ipocolesterolenizzanti", 
+     "ipoglicemizzante orale" => "ipoglicemizzanti", "ipoglicemizzante" => "ipoglicemizzanti", "gastroprotettore" => "IPP", "ipp" => "IPP",
+     "antiepilettico" => "antiepiletici", "collirio" => "corticosteroidi ed antibatterici", "corticosteroide" => "corticosteroidi ed antibatterici",
+     "cortisone" => "corticosteroidi", "ansiolitico" => "ansiolitici"
      }
      
      if wrong_to_corr.keys.include? category

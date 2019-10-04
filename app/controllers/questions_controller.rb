@@ -117,7 +117,7 @@ class QuestionsController < ApplicationController
      @counts.reject!{|k| k == "nessuna risposta"}
      #### Here we clean duplicate values
      @counts = clean_counts(@counts)
-     logger.debug("Counts after cleaning: #{@counts}")
+     #logger.debug("Counts after cleaning: #{@counts}")
      #binding.pry
      
      @count_drugs = filter_counts(@count_drugs, 0)
@@ -129,7 +129,7 @@ class QuestionsController < ApplicationController
      @count_categories = filter_counts(@count_categories, 0)
      @count_categories = (@count_categories.sort_by{|category, count| -count}).to_h
      #binding.pry
-     #logger.debug "count_categories: #{@count_categories}"
+     logger.debug "count_categories: #{@count_categories}"
      @subquestions = Question.where("qid = ? AND subid <> 0", params[:id])
      @suboptions = QuestionOption.where("qid = ? AND subid <> 0", params[:id])
      #binding.pry
