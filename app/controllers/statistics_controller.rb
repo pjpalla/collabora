@@ -129,12 +129,13 @@ class StatisticsController < ApplicationController
     
     def drugs
         @black_list = ["castrol", "farmaco generico", "magramir"]
-        @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").paginate(:page => params[:page]).order('drug_name ASC')
+        @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").where.not(drug_name: @black_list).paginate(:page => params[:page]).order('drug_name ASC')
         
     end
     
     def aggregated_drugs
-        @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").order('drug_name ASC')
+        @black_list = ["castrol", "farmaco generico", "magramir"]
+        @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").where.not(drug_name: @black_list).order('drug_name ASC')
         if params["selected"].nil?
             @drug_selected = @drug_names.first.drug_name
         else

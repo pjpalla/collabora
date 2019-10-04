@@ -188,7 +188,6 @@ module QuestionsHelper
             else
                h[tmp_key] = v    
             end
-            #binding.pry
       end        
       h
   end      
