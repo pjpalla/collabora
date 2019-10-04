@@ -153,7 +153,26 @@ module QuestionsHelper
          drug = wrong_to_corr[drug]
      end     
      drug    
+  end
+  
+  
+   def sanitize_drug_category(category)
+     wrong_to_corr = { "antipiretico" => "analgesico-antipiretico", "antidolorifici e antipiretici" => "analgesico-antipiretico",
+     "analgesico e antipiretico" =>  "analgesico-antipiretico", "antidolorifico" => "fans", "antiinfiammatorio" => "fans",
+     "antinfiammatorio" => "fans", "antiinfiammatori" => "fans", "antidolorifici"  => "fans", "antinfluenzali" => "fans", 
+     "antiinfluenzali" => "fans", "antinfiammatorio non steroideo" => "fans", "fans" => "FANS" 
+     }
+     
+     if wrong_to_corr.keys.include? category
+         category = wrong_to_corr[category]
+         if category == "fans"
+             category = category.upcase
+         end     
+     end     
+     category   
   end 
+  
+  
   
   
   def clean_counts(counts)
@@ -161,6 +180,8 @@ module QuestionsHelper
       h = Hash.new
       counts.each do |k,v|
             tmp_key = k.gsub(/\s*\/\s*/, '/')
+            tmp_key = tmp_key.gsub(/\s*</, "< ")
+            tmp_key = tmp_key.gsub(/\s*>/, "> ")            
             tmp_key = tmp_key.gsub("  ", " ")
             if h.keys.include?(tmp_key)
                 h[tmp_key] += v
