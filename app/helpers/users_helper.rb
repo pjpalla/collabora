@@ -6,7 +6,7 @@ module UsersHelper
         users = users.delete_if{|k,v| k.nil?}
         logger.debug "Users: #{users}"
       
-        pie_chart users, library: {title: "Ripartizione per sesso", pieHole: 0.4}
+        pie_chart users, library: {title: "Ripartizione per genere", pieHole: 0.4}
         # pie_chart users, height: '400px', library: {
         #   title: {text: 'Users by sex', x: -20},
         #   yAxis: {
