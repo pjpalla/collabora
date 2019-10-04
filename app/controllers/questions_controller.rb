@@ -101,6 +101,7 @@ class QuestionsController < ApplicationController
               end
              
               unless category.nil? || category == ""
+                    category = sanitize_drug_category(category)
                     @count_categories[category] += 1
               end
            end
@@ -116,6 +117,7 @@ class QuestionsController < ApplicationController
      @counts.reject!{|k| k == "nessuna risposta"}
      #### Here we clean duplicate values
      @counts = clean_counts(@counts)
+     logger.debug("Counts after cleaning: #{@counts}")
      #binding.pry
      
      @count_drugs = filter_counts(@count_drugs, 0)
