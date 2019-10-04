@@ -44,6 +44,7 @@ module QuestionsHelper
                     count_drugs[drug] += 1
               end   
               unless category.nil? || category == "" || category == "-"
+                    category = sanitize_drug_category(category)
                     count_categories[category] += 1
               end
             end
@@ -61,15 +62,18 @@ module QuestionsHelper
                 
         
         counts.except!("nessuna risposta") if (qid == 11 && subid == 2) || (qid == 6 && subid == 1)
-        if (qid == 1 && subid == 1)
+        if (qid == 1 && subid == 1) 
             counts.reject!{|k| k == "nessuna risposta"}
         end
         #binding.pry
         count_drugs = filter_counts(count_drugs, 0)
+        
         ##here we sort by value in descending order
         count_drugs = (count_drugs.sort_by{|drug, count| -count}).to_h
         count_categories = filter_counts(count_categories, 0)
         count_categories = (count_categories.sort_by{|category, count| -count}).to_h
+        
+        count_drugs.reject!{|k| (k == "zira") || (k == "non ricorda") || (k == "harmony")}
         return counts, count_drugs, count_categories
     end  
     
@@ -147,7 +151,9 @@ module QuestionsHelper
      "ferrograd" => "ferro-grad", "metotrexate sottocutanea" => "methotrexate", "naprosin" => "naprosyn", "neoborocillina" => "neo borocillina",
      "novarapid" => "novorapid", "oncocarbide" => "onco carbide", "penicillina iniezione" => "penicillina", "pillola anticoncezionale generico" => "pillola anticoncezionale",
      "simvastatin" => "simvastatina", "statina generico" => "statine", "tamsulosina cloridrato" => "tamsulosina", "tirosin fiale" => "tirosint",
-     "votaren" => "voltaren", "yasminelle generico" => "yasminelle", "ziprexa" => "zyprexa", "zolofov" => "zoloft", "zyrolic" => "zyloric"}
+     "votaren" => "voltaren", "yasminelle generico" => "yasminelle", "ziprexa" => "zyprexa", "zolofov" => "zoloft", "zyrolic" => "zyloric",
+     "coeferalgan" => "co-efferalgan", "neolotan" => "neo-lotan", "sincron" => "sintron", "parcetamolo" => "paracetamolo"      
+     }
      
      if wrong_to_corr.keys.include? drug
          drug = wrong_to_corr[drug]
@@ -163,10 +169,12 @@ module QuestionsHelper
      "antiinfluenzali" => "fans", "antinfiammatorio non steroideo" => "fans", "fans" => "FANS", "analgesico" => "analgesici oppioidi",
      "oppioide" => "analgesici oppioidi", "antiipertensivo" => "antipertensivi", "trattamento dell'ipertensione" => "antipertensivi",
      "generico per la pressione" => "antipertensivi", "per la pressione generico" => "antipertensivi", "antipercolesterolemico" => "ipocolesterolenizzanti",
-     "ipolipemizzante" => "ipocolesterolenizzanti", "per il colesterolo" => "ipocolesterolenizzanti", "statine" => "ipocolesterolenizzanti", 
+     "ipolipemizzante" => "ipocolesterolemizzanti", "per il colesterolo" => "ipocolesterolemizzanti", "statine" => "ipocolesterolemizzanti", 
      "ipoglicemizzante orale" => "ipoglicemizzanti", "ipoglicemizzante" => "ipoglicemizzanti", "gastroprotettore" => "IPP", "ipp" => "IPP",
      "antiepilettico" => "antiepiletici", "collirio" => "corticosteroidi ed antibatterici", "corticosteroide" => "corticosteroidi ed antibatterici",
-     "cortisone" => "corticosteroidi", "ansiolitico" => "ansiolitici"
+     "cortisone" => "corticosteroidi", "ansiolitico" => "ansiolitici", "antidepressivo" => "antidepressivi", "antipsicotico" => "antipsicotici",
+     "antipscotico" => "antipsicotici", "pressione" => "antipertensivi", "ipocolesterolemizzante" => "ipocolesterolemizzanti", "antistaminico" => "antistaminici",
+     "pillola anticoncezionale" => "ormoni", "calcio" => "integratore di minerali", "antagonisti dell'angiotensina ii" => "antipertensivi"
      }
      
      if wrong_to_corr.keys.include? category
