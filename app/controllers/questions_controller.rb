@@ -32,7 +32,7 @@ class QuestionsController < ApplicationController
         @uids = User.all.pluck(:uid)
     elsif @location == "sardegna eccetto medio campidano"
         @uids = User.where.not(place: 'medio campidano').pluck(:uid)
-        logger.debug "eccetto: #{@uids.length}"
+        #logger.debug "eccetto: #{@uids.length}"
     elsif @location == "altro"
         @uids = User.where.not(place: @locations)
     end
@@ -124,21 +124,26 @@ class QuestionsController < ApplicationController
      #binding.pry
      ###here we sort by value in descending order
      @count_drugs = (@count_drugs.sort_by{|drug, count| -count}).to_h
+     @count_drugs.reject!{|k| k == "zira" || k == "non ricorda" || k == "harmony" || k == "farmaco di marca" || k == "antibiotico di marca" || k == "quello di marca" || k == "farmaco generico" || k == "antiipertensivo generico" || k == "castrol" || k == "magramir"}
      
      
      @count_categories = filter_counts(@count_categories, 0)
      @count_categories = (@count_categories.sort_by{|category, count| -count}).to_h
      #binding.pry
+     @count_categories.reject!{|k| k == "per dolori alla schiena" || k == "per l’orecchio" || k == "farmaco di marca" || k == "tirosil pastiglie"}
+
+     logger.debug "*** check ****"
      logger.debug "count_categories: #{@count_categories}"
+     logger.debug "*****************"
      @subquestions = Question.where("qid = ? AND subid <> 0", params[:id])
      @suboptions = QuestionOption.where("qid = ? AND subid <> 0", params[:id])
      #binding.pry
-     logger.debug "count_drugs: #{@count_drugs}"
+     #logger.debug "count_drugs: #{@count_drugs}"
      respond_to do |format|
        if request.xhr?
           logger.debug "XHR request"
           logger.debug "ajax param: #{@location}"
-          logger.debug "uids controller: #{@uids.length}"
+          #logger.debug "uids controller: #{@uids.length}"
           format.js 
        else  
         format.html
