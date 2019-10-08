@@ -72,7 +72,7 @@ module QuestionsHelper
         count_drugs = (count_drugs.sort_by{|drug, count| -count}).to_h
         count_categories = filter_counts(count_categories, 0)
         count_categories = (count_categories.sort_by{|category, count| -count}).to_h
-        count_categories.reject!{|k| k == "per la schiena" || k == "per l’orecchio" || k == "farmaco di marca" || k == "tirosil pastiglie"}
+        count_categories.reject!{|k| k == "per la schiena" || k == "per l’orecchio" || k == "farmaco di marca" || k == "tirosil pastiglie" || k == "da banco"}
         #binding.pry
         count_drugs.reject!{|k| k == "zira" || k == "non ricorda" || k == "harmony" || k == "farmaco di marca" || k == "antibiotico di marca" || k == "quello di marca" || k == "farmaco generico" || k == "antiipertensivo generico" || k == "castrol" || k == "magramir"}
         return counts, count_drugs, count_categories
@@ -176,9 +176,9 @@ module QuestionsHelper
   
    def sanitize_drug_category(category)
      wrong_to_corr = { "antipiretico" => "analgesico-antipiretico", "antidolorifici e antipiretici" => "analgesico-antipiretico",
-     "analgesico e antipiretico" =>  "analgesico-antipiretico", "antidolorifico" => "fans", "antiinfiammatorio" => "fans",
-     "antinfiammatorio" => "fans", "antiinfiammatori" => "fans", "antidolorifici"  => "fans", "antinfluenzali" => "fans", "antinfluenzale" => "fans",
-     "antiinfluenzali" => "fans", "antinfiammatorio non steroideo" => "fans", "fans" => "FANS", "analgesico" => "analgesici oppioidi",
+     "analgesico e antipiretico" =>  "analgesico-antipiretico", "antidolorifico" => "analgesico-antipiretico", "antiinfiammatorio" => "fans",
+     "antinfiammatorio" => "fans", "antiinfiammatori" => "fans", "antidolorifici"  => "analgesico-antipiretico", "antinfluenzali" => "fans", "antinfluenzale" => "fans",
+     "antiinfluenzali" => "fans", "antinfiammatorio non steroideo" => "fans", "fans" => "FANS", "analgesico" => "analgesico-antipiretico",
      "oppioide" => "analgesici oppioidi", "antiipertensivo" => "antipertensivi", "trattamento dell’ipertensione" => "antipertensivi",
      "generico per la pressione" => "antipertensivi", "per la pressione generico" => "antipertensivi", "antipercolesterolemico" => "ipocolesterolemizzanti",
      "ipolipemizzante" => "ipocolesterolemizzanti", "per il colesterolo" => "ipocolesterolemizzanti", "statine" => "ipocolesterolemizzanti", 
@@ -214,8 +214,11 @@ module QuestionsHelper
      "antidolorico" => "analgesici", "antiipertensivi" => "antipertensivi", "antigottoso" => "diuretici", "cardioaspirina" => "antitrombotici", "inibitore di pompa protonica" => "IPP",
      "corticosteroidi sistemici-glicocorticoidi" => "corticosteroidi", "farmaci per il nervoso" => "ansiolitici", "beta bloccante" => "beta-bloccante",
      "analgesici ed antipiretici" => "analgesico-antipiretico", "per la pressione" => "antipertensivi", "antagonisti dell’amgiotensina ii" => "antipertensivi",
-     "gastroprotettori" => "IPP", "pillole contraccettive" => "ormoni", "gasrtoprotettore" => "IPP"
-         
+     "gastroprotettori" => "IPP", "pillole contraccettive" => "ormoni", "gasrtoprotettore" => "IPP", "antifluenzale" => "fans", "antipitetico" => "analgesico-antipiretico",
+     "antifluezali" => "fans", "antipiretici" => "analgesico-antipiretico", "antiinfiammatorii" => "fans", "antinfiamatorio" => "fans", "antidolorifico da banco" => "analgesico-antipiretico",
+     "antiinfiammatrio" => "fans", "per il mal di testa" => "fans", "antintidolorifico" => "analgesico-antipiretico", "un mal di testa" => "analgesico-antipiretico", "antidolorifci" => "analgesico-antipiretico",
+     
+              
          
      }
      
