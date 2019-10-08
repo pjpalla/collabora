@@ -216,10 +216,8 @@ module QuestionsHelper
      "analgesici ed antipiretici" => "analgesico-antipiretico", "per la pressione" => "antipertensivi", "antagonisti dell’amgiotensina ii" => "antipertensivi",
      "gastroprotettori" => "IPP", "pillole contraccettive" => "ormoni", "gasrtoprotettore" => "IPP", "antifluenzale" => "fans", "antipitetico" => "analgesico-antipiretico",
      "antifluezali" => "fans", "antipiretici" => "analgesico-antipiretico", "antiinfiammatorii" => "fans", "antinfiamatorio" => "fans", "antidolorifico da banco" => "analgesico-antipiretico",
-     "antiinfiammatrio" => "fans", "per il mal di testa" => "fans", "antintidolorifico" => "analgesico-antipiretico", "un mal di testa" => "analgesico-antipiretico", "antidolorifci" => "analgesico-antipiretico",
+     "antiinfiammatrio" => "fans", "per il mal di testa" => "fans", "antintidolorifico" => "analgesico-antipiretico", "un mal di testa" => "analgesico-antipiretico", "antidolorifci" => "analgesico-antipiretico"
      
-              
-         
      }
      
      if wrong_to_corr.keys.include? category
