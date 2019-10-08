@@ -72,8 +72,9 @@ module QuestionsHelper
         count_drugs = (count_drugs.sort_by{|drug, count| -count}).to_h
         count_categories = filter_counts(count_categories, 0)
         count_categories = (count_categories.sort_by{|category, count| -count}).to_h
-        
-        count_drugs.reject!{|k| (k == "zira") || (k == "non ricorda") || (k == "harmony")}
+        count_categories.reject!{|k| k == "per la schiena" || k == "per l’orecchio" || k == "farmaco di marca" || k == "tirosil pastiglie"}
+        #binding.pry
+        count_drugs.reject!{|k| k == "zira" || k == "non ricorda" || k == "harmony" || k == "farmaco di marca" || k == "antibiotico di marca" || k == "quello di marca" || k == "farmaco generico" || k == "antiipertensivo generico" || k == "castrol" || k == "magramir"}
         return counts, count_drugs, count_categories
     end  
     
@@ -143,16 +144,27 @@ module QuestionsHelper
   end
   
   def sanitize_drug_name(drug)
-     wrong_to_corr = {"chetoprofene" => "ketoprofene", "paracetamolo generico" => "paracetamolo", 
+     wrong_to_corr = {"chetoprofene" => "ketoprofene", "paracetamolo generico" => "paracetamolo", "ketoprofene generico" => "ketoprofene", "diclofenac generico" => "diclofenac", 
      "enn" => "en", "efferalgan al gusto pompelmo" => "efferalgan", "loperamide hexal" => "loperamide", 
      "ibuprofene generico" => "ibuprofene","atovarstatina" => "atorvastatina", "moment act" => "momentact", "desloratadina sandoz" => "desloratadina",
-     "oki stask" => "okitask", "alcion" => "halcion", "aldol" => "haldol", "antimicotico generico" => "antimicotico", "antipertensivo generico" => "antipertensivo",
-     "carbolitium" => "carbolithium", "dobergin" => "dopergin", "duplamox" => "neoduplamox", "enantium" => "enantyum", "enteregermia" => "enterogermina",
+     "oki stask" => "okitask", "alcion" => "halcion", "aldol" => "haldol", "carbolitium" => "carbolithium", "dobergin" => "dopergin", "duplamox" => "neoduplamox", "enantium" => "enantyum", "enteregermia" => "enterogermina",
      "ferrograd" => "ferro-grad", "metotrexate sottocutanea" => "methotrexate", "naprosin" => "naprosyn", "neoborocillina" => "neo borocillina",
-     "novarapid" => "novorapid", "oncocarbide" => "onco carbide", "penicillina iniezione" => "penicillina", "pillola anticoncezionale generico" => "pillola anticoncezionale",
+     "novarapid" => "novorapid", "oncocarbide" => "onco carbide", "penicillina iniezione" => "penicillina",
      "simvastatin" => "simvastatina", "statina generico" => "statine", "tamsulosina cloridrato" => "tamsulosina", "tirosin fiale" => "tirosint",
      "votaren" => "voltaren", "yasminelle generico" => "yasminelle", "ziprexa" => "zyprexa", "zolofov" => "zoloft", "zyrolic" => "zyloric",
-     "coeferalgan" => "co-efferalgan", "neolotan" => "neo-lotan", "sincron" => "sintron", "parcetamolo" => "paracetamolo"      
+     "coeferalgan" => "co-efferalgan", "neolotan" => "neo-lotan", "sincron" => "sintrom", "parcetamolo" => "paracetamolo", "neolatan" => "neo-lotan",
+     "pantol" => "patrol", "carioaspirin" => "cardioaspirin", "di base" => "Dibase", "ferro grad" => "ferro-grad", "converlam" => "coverlam",
+     "minulett" => "minulet", "panifur" => "pafinur", "bibase" => "Dibase", "prozac generico" => "fluoxetina", "atorvastatina generico" => "atorvastatina",
+     "atorvastatina calcica generico" => "atorvastatina", "simvastatina generico" => "simvastatina", "xanax generico" => "alpraxolam", "coefferalgan" => "co-efferalgan", "nimesulide generico" => "nimesulide",
+     "lobivon generico" => "nebivololo", "lasix generico" => "furosemide", "sulidamor generico" => "nimesulide", "atorvastatin" => "atorvastatina", "nimesulide dorom" => "nimesulide", 
+     "acido acetisalicilico" => "acido acetilsalicilico", ":kyrolic" => "zyloric", "alfusozima ratiopharm" => "alfuzosina", "nebivololo generico" => "nebivololo",
+     "flecainide generico" => "flecainide", "sobrerolo generico" => "sobrerolo", "eutirox 75" => "eutirox", "geenrico dell’aulin" => "nimesulide", 
+     "lirica" => "lyrica", "amoxicillina rathiopharm" => "amoxicillina", "acido acetil salicilico" => "acido acetilsalicilico", "sintron" => "sintrom",
+     "flumucil" => "fluimucil", "naprosene" => "naprossene", "atorvastatina calcica" => "atorvastatina", "ibuprofene carlo erba" => "ibuprofene",
+     "bentelan intramuscolo" => "bentelan", "debridat generico" => "trimebutina", "oki generico" => "ketoprofene", "fluoxetina generico" => "fluoxetina",
+     "oki + antistaminico" => "oki", "nimesulide + antistaminico" => "nimesulide", "betametasone + gentamicina" => "betametasone", "bamfix" => "bamifix", "pillola anticoncezionale generico" => "pillola anticoncezionale",
+     "antimicotico generico" => "antimicotici", ": kyrolic" => "zyloric"
+     
      }
      
      if wrong_to_corr.keys.include? drug
@@ -165,16 +177,46 @@ module QuestionsHelper
    def sanitize_drug_category(category)
      wrong_to_corr = { "antipiretico" => "analgesico-antipiretico", "antidolorifici e antipiretici" => "analgesico-antipiretico",
      "analgesico e antipiretico" =>  "analgesico-antipiretico", "antidolorifico" => "fans", "antiinfiammatorio" => "fans",
-     "antinfiammatorio" => "fans", "antiinfiammatori" => "fans", "antidolorifici"  => "fans", "antinfluenzali" => "fans", 
+     "antinfiammatorio" => "fans", "antiinfiammatori" => "fans", "antidolorifici"  => "fans", "antinfluenzali" => "fans", "antinfluenzale" => "fans",
      "antiinfluenzali" => "fans", "antinfiammatorio non steroideo" => "fans", "fans" => "FANS", "analgesico" => "analgesici oppioidi",
-     "oppioide" => "analgesici oppioidi", "antiipertensivo" => "antipertensivi", "trattamento dell'ipertensione" => "antipertensivi",
-     "generico per la pressione" => "antipertensivi", "per la pressione generico" => "antipertensivi", "antipercolesterolemico" => "ipocolesterolenizzanti",
+     "oppioide" => "analgesici oppioidi", "antiipertensivo" => "antipertensivi", "trattamento dell’ipertensione" => "antipertensivi",
+     "generico per la pressione" => "antipertensivi", "per la pressione generico" => "antipertensivi", "antipercolesterolemico" => "ipocolesterolemizzanti",
      "ipolipemizzante" => "ipocolesterolemizzanti", "per il colesterolo" => "ipocolesterolemizzanti", "statine" => "ipocolesterolemizzanti", 
      "ipoglicemizzante orale" => "ipoglicemizzanti", "ipoglicemizzante" => "ipoglicemizzanti", "gastroprotettore" => "IPP", "ipp" => "IPP",
-     "antiepilettico" => "antiepiletici", "collirio" => "corticosteroidi ed antibatterici", "corticosteroide" => "corticosteroidi ed antibatterici",
+     "antiepilettico" => "antiepilettici", "collirio" => "corticosteroidi ed antibatterici", "corticosteroide" => "corticosteroidi ed antibatterici",
      "cortisone" => "corticosteroidi", "ansiolitico" => "ansiolitici", "antidepressivo" => "antidepressivi", "antipsicotico" => "antipsicotici",
      "antipscotico" => "antipsicotici", "pressione" => "antipertensivi", "ipocolesterolemizzante" => "ipocolesterolemizzanti", "antistaminico" => "antistaminici",
-     "pillola anticoncezionale" => "ormoni", "calcio" => "integratore di minerali", "antagonisti dell'angiotensina ii" => "antipertensivi"
+     "pillola anticoncezionale" => "ormoni", "calcio" => "integratore di minerali", "antagonisti dell'angiotensina ii" => "antipertensivi",
+     "anticoagulante" => "antitrombotici", "antitrombotico" => "antitrombotici", "mucolitico" => "mucolitici", "anestetico" => "anestetici", 
+     "ormone tiroideo" => "ormoni tiroidei", "integratore alimentare" => "integratori alimentari", "antiaritmico" => "antiaritmici", "antiemetico" => "antiemetici",
+     "pillola contraccettiva" => "ormoni", "anticoncezionale" => "ormoni", "antiistaminico" => "antistaminici", "farmaco per osteoporosi" => "bifosfonati",
+     "tachipirina" => "analgesico-antipiretico", "contraccettivo orale" => "ormoni", "antiinfiammatorio non steroideo" => "fans",
+     "antitrombotici antiaggreganti piastrinici" =>  "antitrombotici", "analgesici e antipiretici" => "analgesico-antipiretico", "corticosteroidi-antibatterici" => "corticosteroidi ed antibatterici",
+     "prevenzione di nausea e vomito" => "antiemetici", "protettore per lo stomaco" => "IPP", "integratori" =>	"integratori alimentari", "antifiammatorio/antireumatico non steroideo" => "fans",
+     "ansiolitici derivati benzodiazepinici" => "ansiolitici", "antibatterico generale per uso sistemico" => "antibiotico", "antisatminico" => "antistaminici",
+     "antidiarroico" => "antidiarroici", "fluidificante" => "mucolitici", "melatonina" => "psicolettici", "contrasto iodato" => "mezzo di contrasto radiologico",
+     "liquido di contrasto" => "mezzo di contrasto radiologico", "diuretico" => "diuretici", "inibitori di hmg-CoA reduttasi" => "ipocolesterolemizzanti",
+     "inibitori di hmg-coa reduttasi" => "ipocolesterolemizzanti", "associazioni di antibatterici orali" => "antibiotico", "associazioni di antidiabetici orali" => "ipoglicemizzanti", "inibitore pompa protonica" => "IPP",
+     "integratore a base di gambo d’ananas" => "integratori alimentari", "antiemicrania" => "antiemicranici", "trattamento dell’ipercolesterolemia" => "ipocolesterolemizzante",
+     "oppiaceo" => "analgesici oppioidi", "mezzo di contrasto" => "mezzo di contrasto radiologico", "ormone" => "ormoni", "acido biliare" => "preparati a base di acidi biliari",
+     "pastiglie per colesterolo" => "ipocolesterolemizzanti", "antibiotici" => "antibiotico", "anticoagulante orale" => "antitrombotici", "pomata per punture di insetto" => "dermatologici, corticosteroidi",
+     "analgesico oppioide" => "analgesici oppioidi", "decongestionante nasale" => "decongestionanti nasali", "analgesico antipiretico" => "analgesico-antipiretico",
+     "per il reflusso" => "IPP", "analgesico oppiaceo" => "analgesici oppioidi", "anticoncezionale orale" => "ormoni", "per osteoporosi" => "bifosfonati",
+     "antibiotico generico" => "antibiotico", "procinetico" => "procinetici", "antibiotico generico per placche in gola" => "antibiotico", "farmaco per artrosi" =>	"fans",
+     "per la febbre" => "analgesico-antipiretico", "per il colon irritabile" => "antispastici", "generico per l’ansia" => "ansiolitici", "estrogeno" => "ormoni",
+     "stabilizzatore umore" => "antiepilettici", "anipsicotico" => "antipsicotici", "ansiolitcio" => "ansiolitici", "controllo iperfosfatemia" => "trattamento dell'iperfosfatemia",
+     "neurolettico" => "antipsicotici", "lassativo" => "lassativi", "per ernia iatale" => "IPP", "antiemicranico" => "antiemicranici", "antipertensivo" => "antipertensivi", 
+     "decongestionale nasale" => "decongestionanti nasali", "generico per ansia" => "ansiolitici", "antinfiammatorio non sterideo" => "fans", "anticoaugulante" => "antitrombotici",
+     "analgestico" => "analgesici oppioidi", "antiinfluenzale" => "fans", "miorilassante" => "miorilassanti", "preparato antivertigine" => "preparati antivertigine", "interferone" => "interferoni", "antitumorali" => "antitumorale",
+     "immunosoppressore" => "immunosoppressori", "per le vertigini" => "preparati antivertigine", "eparina" => "antitrombotici", "antidolorifico oppioide" => "analgesici oppioidi",
+     "insulina" => "insuline", "vitamina" => "integratori alimentari", "antimicotico" => "antimicotici", "antipertensivo generico" => "antipertensivi" ,
+     "antimicotico generico" => "antimicotici", "pillola anticoncezionale generico" => "pillola anticoncezionale", "antiacido" => "antiacidi",
+     "antidolorico" => "analgesici", "antiipertensivi" => "antipertensivi", "antigottoso" => "diuretici", "cardioaspirina" => "antitrombotici", "inibitore di pompa protonica" => "IPP",
+     "corticosteroidi sistemici-glicocorticoidi" => "corticosteroidi", "farmaci per il nervoso" => "ansiolitici", "beta bloccante" => "beta-bloccante",
+     "analgesici ed antipiretici" => "analgesico-antipiretico", "per la pressione" => "antipertensivi", "antagonisti dell’amgiotensina ii" => "antipertensivi",
+     "gastroprotettori" => "IPP", "pillole contraccettive" => "ormoni", "gasrtoprotettore" => "IPP"
+         
+         
      }
      
      if wrong_to_corr.keys.include? category
