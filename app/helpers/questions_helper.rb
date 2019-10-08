@@ -211,13 +211,13 @@ module QuestionsHelper
      "immunosoppressore" => "immunosoppressori", "per le vertigini" => "preparati antivertigine", "eparina" => "antitrombotici", "antidolorifico oppioide" => "analgesici oppioidi",
      "insulina" => "insuline", "vitamina" => "integratori alimentari", "antimicotico" => "antimicotici", "antipertensivo generico" => "antipertensivi" ,
      "antimicotico generico" => "antimicotici", "pillola anticoncezionale generico" => "pillola anticoncezionale", "antiacido" => "antiacidi",
-     "antidolorico" => "analgesici", "antiipertensivi" => "antipertensivi", "antigottoso" => "diuretici", "cardioaspirina" => "antitrombotici", "inibitore di pompa protonica" => "IPP",
+     "antidolorico" => "analgesico-antipiretico", "antiipertensivi" => "antipertensivi", "antigottoso" => "diuretici", "cardioaspirina" => "antitrombotici", "inibitore di pompa protonica" => "IPP",
      "corticosteroidi sistemici-glicocorticoidi" => "corticosteroidi", "farmaci per il nervoso" => "ansiolitici", "beta bloccante" => "beta-bloccante",
      "analgesici ed antipiretici" => "analgesico-antipiretico", "per la pressione" => "antipertensivi", "antagonisti dell’amgiotensina ii" => "antipertensivi",
      "gastroprotettori" => "IPP", "pillole contraccettive" => "ormoni", "gasrtoprotettore" => "IPP", "antifluenzale" => "fans", "antipitetico" => "analgesico-antipiretico",
      "antifluezali" => "fans", "antipiretici" => "analgesico-antipiretico", "antiinfiammatorii" => "fans", "antinfiamatorio" => "fans", "antidolorifico da banco" => "analgesico-antipiretico",
-     "antiinfiammatrio" => "fans", "per il mal di testa" => "fans", "antintidolorifico" => "analgesico-antipiretico", "un mal di testa" => "analgesico-antipiretico", "antidolorifci" => "analgesico-antipiretico"
-     
+     "antiinfiammatrio" => "fans", "per un mal di testa" => "fans", "antintidolorifico" => "analgesico-antipiretico", "un mal di testa" => "analgesico-antipiretico", "antidolorifci" => "analgesico-antipiretico",
+     "antinfiammtori" => "fans", "per il mal di testa" => "fans", "antinfluezale" => "fans", "antinfuenzale" => "fans", "antifluenzali" => "fans",   
      }
      
      if wrong_to_corr.keys.include? category
