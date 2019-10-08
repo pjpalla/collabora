@@ -217,8 +217,8 @@ module QuestionsHelper
      "gastroprotettori" => "IPP", "pillole contraccettive" => "ormoni", "gasrtoprotettore" => "IPP", "antifluenzale" => "fans", "antipitetico" => "analgesico-antipiretico",
      "antifluezali" => "fans", "antipiretici" => "analgesico-antipiretico", "antiinfiammatorii" => "fans", "antinfiamatorio" => "fans", "antidolorifico da banco" => "analgesico-antipiretico",
      "antiinfiammatrio" => "fans", "per un mal di testa" => "fans", "antintidolorifico" => "analgesico-antipiretico", "un mal di testa" => "analgesico-antipiretico", "antidolorifci" => "analgesico-antipiretico",
-     "antinfiammtori" => "fans", "per il mal di testa" => "fans", "antinfluezale" => "fans", "antinfuenzale" => "fans", "antifluenzali" => "fans", "vitamine" => "integratori alimentari",
-     "integratore" => "integratori alimentari"
+     "antinfiammatori" => "fans", "per il mal di testa" => "fans", "antinfluezale" => "fans", "antinfuenzale" => "fans", "antifluenzali" => "fans", "vitamine" => "integratori alimentari",
+     "integratore" => "integratori alimentari", "analgesici" => "analgesico-antipiretico"
      }
      
      if wrong_to_corr.keys.include? category
