@@ -84,9 +84,13 @@ module SurveysHelper
     def build_default_card_number
         card_number = ""
         max_card = User.where("card like 'b%' or card like 'B%'").maximum('card')
-        int_part = max_card.split("B")[1].to_i + 1
-        card_number = max_card[0, 2] + int_part.to_s
-        card_number
+        unless max_card.nil?
+            int_part = max_card.split("B")[1].to_i + 1
+            card_number = max_card[0, 2] + int_part.to_s
+        else
+          card_number = "" 
+        end
+        card_number 
     end    
         
     
