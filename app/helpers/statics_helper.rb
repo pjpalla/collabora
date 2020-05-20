@@ -279,11 +279,15 @@ end
        
        effect_sex = drug.map{|d| [d.effect, d.sex]}
        effect_sex.each do |es|
-            if es[1] == "M"
-                count_males[es[0]] += 1
-            elsif es[1] == "F"
-                count_females[es[0]] += 1
-            end    
+                if es[0].nil? 
+                    next
+                end    
+                if es[1] == "M"
+                    count_males[es[0]] += 1
+                elsif es[1] == "F"
+                    count_females[es[0]] += 1
+                end
+         
        end       
        stacked_data = []
        all_effects.each do |k|
