@@ -33,8 +33,9 @@ class QuestionsController < ApplicationController
     elsif @location == "sardegna eccetto medio campidano"
         @uids = User.where.not(place: 'medio campidano').pluck(:uid)
         #logger.debug "eccetto: #{@uids.length}"
-    elsif @location == "altro"
-        @uids = User.where.not(place: @locations)
+    # elsif @location == "altro"
+    #     @uids = User.where.not(place: @locations)
+    #     logger.debug @uids
     end
       
       
@@ -130,7 +131,7 @@ class QuestionsController < ApplicationController
      @count_categories = filter_counts(@count_categories, 0)
      @count_categories = (@count_categories.sort_by{|category, count| -count}).to_h
      #binding.pry
-     @count_categories.reject!{|k| k == "per dolori alla schiena" || k == "per l’orecchio" || k == "farmaco di marca" || k == "tirosil pastiglie"}
+     @count_categories.reject!{|k| k == "per dolori alla schiena" || k == "per l’orecchio" || k == "farmaco di marca" || k == "tirosil pastiglie" || k == "da banco"}
 
      logger.debug "*** check ****"
      logger.debug "count_categories: #{@count_categories}"
