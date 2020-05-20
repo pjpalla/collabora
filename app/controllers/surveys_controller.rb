@@ -190,7 +190,18 @@ class SurveysController < ApplicationController
   # DELETE /surveys/1
   # DELETE /surveys/1.json
   def destroy
-    @survey.destroy
+    ActiveRecord::Base.transaction do
+      user_id = @survey.uid
+      record_time = @survey.created_at.utc.to_i
+      
+      @survey.destroy
+      answers_to_delete = Answer.where(uid: user_id).each{|a| a.destroy}
+      indicators_to_delete = Indicator.where(uid: user_id).each{|i| i.destroy}
+      drugs_to_delete = Drug.all.select{|d| d.created_at.utc.to_i == record_time}
+      drugs_to_delete.each{|d| d.destroy}
+      
+    end  
+
     respond_to do |format|
       format.html { redirect_to surveys_url, notice: 'Survey was successfully destroyed.' }
       format.json { head :no_content }
