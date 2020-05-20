@@ -136,11 +136,13 @@ class StatisticsController < ApplicationController
     def aggregated_drugs
         @black_list = ["castrol", "farmaco generico", "magramir"]
         @drug_names = Drug.distinct.select(:drug_name).where("drug_name <> ''").where.not(drug_name: @black_list).order('drug_name ASC')
-        if params["selected"].nil?
-            @drug_selected = @drug_names.first.drug_name
-        else
-            puts params.inspect
-            @drug_selected = params["selected"]
+        unless @drug_names.empty?
+            if params["selected"].nil?
+                @drug_selected = @drug_names.first.drug_name
+            else
+                puts params.inspect
+                @drug_selected = params["selected"]
+            end
         end    
 
     end    
