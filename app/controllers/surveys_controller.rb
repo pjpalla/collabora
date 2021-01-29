@@ -25,8 +25,9 @@ class SurveysController < ApplicationController
   def new
     session[:survey_params] ||= {}
     @survey = Survey.new(session[:survey_params])
-    @survey.current_step = session[:survey_step]
+    #@survey.current_step = session[:survey_step]
     @default_card = build_default_card_number
+    logger.info "***Session Survey Current Step: #{session[:survey_step]}"
   end
 
   # GET /surveys/1/edit
