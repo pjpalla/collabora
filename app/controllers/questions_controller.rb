@@ -53,7 +53,8 @@ class QuestionsController < ApplicationController
      #parent_one = 1
      
      @question = Question.where("qid = ? AND subid = ?", params[:id], 0)[0]
-     @question_number = Question.where(subid: 0).length
+     #@question_number = Question.where(subid: 0).length
+     @question_number = 17
      opt = QuestionOption.where("qid = ? AND subid = ?", params[:id], 0)
      @options = opt.map{|o| o.odescription}
      
