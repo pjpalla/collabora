@@ -1,11 +1,11 @@
 <h3>Informazioni di base</h3><br/>
 <%#= f.hidden_field :uid, value: " " %>
 <%= f.hidden_field :card, value: "aaa" %>
-<div class="input-group">
-<!--  <span class="input-group-addon" id="basic-addon1">Scheda Numero:</span> -->
+<!--<div class="input-group">
+
 <span class="label label-primary">Contatore:</span>
   <input type="text" class="form-control" placeholder="Contatore" aria-describedby="basic-addon1" name="card_number" value='<%=result = session[:card_number].nil? ? @default_card : session[:card_number] %>'>
-</div><br/>
+</div><br/> -->
 
 <div class="input-group">
 <!--  <span class="input-group-addon" id="basic-addon1">Luogo Raccolta: </span> -->
