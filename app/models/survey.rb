@@ -11,11 +11,23 @@ class Survey < ActiveRecord::Base
     end
     
     def next_step
+        if self.current_step == steps.first
+            self.current_step = steps[steps.index(current_step) + 11]
+        elsif self.current_step == steps[steps.index('q17')]
+            self.current_step = steps.last
+        else    
         self.current_step = steps[steps.index(current_step) + 1]
+        end
     end
     
     def previous_step
-        self.current_step = steps[steps.index(current_step) - 1]
+        if self.current_step == steps[steps.index('q11')]
+            self.current_step = steps.first
+        elsif current_step == steps.last
+            self.current_step = steps[steps.index('q17')]
+        else    
+            self.current_step = steps[steps.index(current_step) - 1]
+        end
     end
     
     def first_step?
