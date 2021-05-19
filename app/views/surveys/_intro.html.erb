@@ -10,7 +10,7 @@
 <div class="input-group">
 <!--  <span class="input-group-addon" id="basic-addon1">Luogo Raccolta: </span> -->
   <span class="label label-primary">Luogo di Raccolta:</span><br/>
-  <% options = ["medio campidano", "cagliari", "oristano", "nuoro", "sassari", "altro"] %>
+  <% options = ["sud sardegna", "cagliari", "oristano", "nuoro", "sassari", "altro"] %>
   <%= select_tag "collection_point", options_for_select(options, session[:collection_point]), multiple: false, class: "selectpicker" %><br/><br/>
 
 <!--  <input type="text" class="form-control" placeholder="Luogo di raccolta" aria-describedby="basic-addon1" name="collection_point" value='<%#=session[:collection_point]%>'> -->
