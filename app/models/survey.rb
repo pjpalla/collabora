@@ -1,6 +1,11 @@
 class Survey < ActiveRecord::Base
     attr_writer :current_step
     
+    before_create do
+        self.created_at = " "
+        self.updated_at = " "
+    end
+    
     
     def current_step
         @current_step || steps.first
