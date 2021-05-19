@@ -193,13 +193,13 @@ class SurveysController < ApplicationController
   def destroy
     ActiveRecord::Base.transaction do
       user_id = @survey.uid
-      record_time = @survey.created_at.utc.to_i
+      #record_time = @survey.created_at.utc.to_i # the platform is not recording any info about drugs
       
       @survey.destroy
       answers_to_delete = Answer.where(uid: user_id).each{|a| a.destroy}
       indicators_to_delete = Indicator.where(uid: user_id).each{|i| i.destroy}
-      drugs_to_delete = Drug.all.select{|d| d.created_at.utc.to_i == record_time}
-      drugs_to_delete.each{|d| d.destroy}
+      #drugs_to_delete = Drug.all.select{|d| d.created_at.utc.to_i == record_time}
+      #drugs_to_delete.each{|d| d.destroy}
       
     end  
 
