@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806161213) do
+ActiveRecord::Schema.define(version: 20210519143953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20190806161213) do
     t.integer  "i6"
     t.integer  "i7"
     t.integer  "i8"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "i9"
     t.integer  "i10"
     t.integer  "i11"
@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(version: 20190806161213) do
   create_table "surveys", force: :cascade do |t|
     t.integer  "uid"
     t.string   "card"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", primary_key: "uid", force: :cascade do |t|
