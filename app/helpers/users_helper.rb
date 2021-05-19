@@ -74,7 +74,7 @@ module UsersHelper
         
         #Then we sort the keys of the users hash
         users = users.sort.to_h
-        bar_chart users, library: {title: "Ripartizione per fasce d'età stimata (anni)", colors: ["green"]}   
+        bar_chart users, library: {title: "Ripartizione per fasce d'età (anni)", colors: ["green"]}   
         
         # bar_chart users, height: '500px', library: {
         #   title: {text: 'Users by age', x: -20},
