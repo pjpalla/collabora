@@ -4,8 +4,8 @@ class StatisticsController < ApplicationController
     
     
     def index
-        @locations = ["medio campidano", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto medio campidano", "altro"]
-        @location = "medio campidano"
+        @locations = ["sud sardegna", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto sud sardegna", "altro"]
+        @location = "sud sardegna"
         if params[:area]
             @location = params[:area].downcase!
             logger.debug "@location: #{@location}"
@@ -16,8 +16,8 @@ class StatisticsController < ApplicationController
         
         if @location == "sardegna"
             @uids = User.all.pluck(:uid)
-        elsif @location == "sardegna eccetto medio campidano"
-            @uids = User.where.not(place: 'medio campidano').pluck(:uid)
+        elsif @location == "sardegna eccetto sud sardegna"
+            @uids = User.where.not(place: 'sud sardegna').pluck(:uid)
         elsif @location == "altro"
             @uids = User.where.not(place: @locations).pluck(:uid) ###### da sistemare --RVD!!!!!!
         end

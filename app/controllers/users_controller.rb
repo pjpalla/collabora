@@ -3,11 +3,11 @@ class UsersController < ApplicationController
     # @msg = { "success" => "true", "message" => "hello"}
  
    
-    @locations = ["medio campidano", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto medio campidano", "altro"]
+    @locations = ["sud sardegna", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto sud sardegna", "altro"]
     #@locations = User.distinct.pluck(:place) + @basic_locations
     #@locations.uniq!
     
-    @location = "medio campidano"
+    @location = "sud sardegna"
     
     if params[:locations]
       @location = params[:locations].downcase!
@@ -17,8 +17,8 @@ class UsersController < ApplicationController
     @users = User.where(place: @location)
     if @location == "sardegna"
       @users = User.all
-    elsif @location == "sardegna eccetto medio campidano"
-      @users = User.where.not(place: 'medio campidano')
+    elsif @location == "sardegna eccetto sud sardegna"
+      @users = User.where.not(place: 'sud sardegna')
       logger.debug "eccetto: #{@users.length}"
     elsif @location == "altro"
       @users = User.where.not(place: @locations)

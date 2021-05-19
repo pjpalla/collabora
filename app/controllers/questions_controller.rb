@@ -14,11 +14,11 @@ class QuestionsController < ApplicationController
   
   def show
      
-    @locations = ["medio campidano", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto medio campidano", "altro"]
+    @locations = ["sud sardegna", "cagliari", "oristano", "nuoro", "sassari","sardegna", "sardegna eccetto sud sardegna", "altro"]
     #@locations = User.distinct.pluck(:place) + @basic_locations
     #@locations.uniq!
     
-    @location = "medio campidano"
+    @location = "sud sardegna"
     
     if params[:locations]
       @location = params[:locations].downcase!
@@ -30,8 +30,8 @@ class QuestionsController < ApplicationController
     @uids = User.where(place: @location).pluck(:uid)
     if @location == "sardegna"
         @uids = User.all.pluck(:uid)
-    elsif @location == "sardegna eccetto medio campidano"
-        @uids = User.where.not(place: 'medio campidano').pluck(:uid)
+    elsif @location == "sardegna eccetto sud sardegna"
+        @uids = User.where.not(place: 'sud sardegna').pluck(:uid)
         #logger.debug "eccetto: #{@uids.length}"
     # elsif @location == "altro"
     #     @uids = User.where.not(place: @locations)
